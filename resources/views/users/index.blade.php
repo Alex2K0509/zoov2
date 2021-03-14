@@ -73,9 +73,52 @@
 
                 </div>
             </div>
+
+
         </div>
+        <div class="row mt-5">
+        <div class="col-xl-8 mb-5 mb-xl-0">
+            <div class="card shadow">
+                <div class="card-header border-0">
 
+                    <form id="upload-information-form" enctype="multipart/form-data" method="post" >
+                        @csrf
+                        <div class="form-group">
+                            <p>publicaciones para los animales</p>
+                            <h5>Mediante este formulario podras crear publicaciones de algun animales que haya creado previamente,</h5>
+                        </div>
+                        <div class="form-group">
+                            <label for="select">Lista de animales disponibles:</label>
+                            <br>
+                            <select name="select" id='select' style='width: 200px;' class="form-control">
+                                <option value='0'> Seleccione un animal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Titulo de la publiación:</label>
+                            <input type="text" class="form-control" id="title" name="title">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Contenido de la publicación:</label>
+                            <input type="text" class="form-control" id="descrip" name="descrip">
+                        </div>
 
+                        <div class="form-group">
+                            <label for="eventeimage">Imagen de la publicación:</label>
+                            <input  type="file" class="form-control" id="imageanimal" name="imageanimal">
+                        </div>
+                        <div class="form-group">
+                            <label for="eventeimage">Video de la publicación:</label>
+                            <input  type="file" class="form-control" id="videoanimal" name="videoanimal">
+                        </div>
+                        <button type="button" class="btn btn-primary" href="javascript:void(0)" onclick="addInformation()">Guardar animal</button>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
     </div>
 
 @endsection

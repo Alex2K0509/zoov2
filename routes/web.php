@@ -48,5 +48,5 @@ Route::group(['middleware' => 'auth'], function () {
 });
 Route::get('/table/eventos', 'App\Http\Controllers\Records\RecordsController@tableeventos')->name('table.eventos');
 Route::get('/edit/eventos', 'App\Http\Controllers\Records\RecordsController@editeventos')->name('edit.eventos');
-
+Route::post('/all/animals', 'App\Http\Controllers\Records\RecordsController@getAnimals')->name('all.animals');
 

@@ -123,6 +123,7 @@ function addAnimal(){
 }
 
 $(document).ready(function() {
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 //tabla para editar eventos
     const table = $('#example').DataTable({
         language: {
@@ -132,6 +133,12 @@ $(document).ready(function() {
         serverSide: true,
         ajax:  '/table/eventos',
         autoWidth: false,
+        responsive: {
+            details: {
+                type: 'column',
+                target: 'tr'
+            }
+        },
         columns: [
             {
                 data: 'eventonombre',
@@ -162,12 +169,36 @@ $(document).ready(function() {
                 searchable: false
             }
         ],
+        columnDefs: [{
+            "targets": 1, // your case first column
+            "className": "contenido-tablas-descripcion"
 
+        }],
         drawCallback: function () {
             $('[data-toggle="tooltip"]').tooltip();
         }
     });
 
+    const select2 = $( "#select" ).select2({
 
-} );
+        ajax: {
+            url: "http://127.0.0.1:8000/all/animals",
+            type: "post",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    _token: CSRF_TOKEN,
+                    search: params.term // search term
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+        }
+    });
+    } );
 

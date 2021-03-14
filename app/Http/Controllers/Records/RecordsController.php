@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\ANIMALES\ANIMales;
 use App\Models\CATALOGOS\CATEventos;
+use App\Models\PUBLICACIONES\PUBlicaciones;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -58,10 +59,25 @@ $alleventos = CATEventos::getEventos();
                             data-toggle="tooltip"
                             data-placement="bottom"
                             title="Eliminar evento">
-                            <i class="uil uil-trash"></i>
+                            <i class="fa fa-trash"></i>
+                            </button>
+                <button href="javascript:void(0)" onclick="editEvento(\'' . $eventid . '\')"
+                            class="btn btn-outline-success btn-sm"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="Editar evento">
+                            <i class="far fa-edit"></i>
+                            </button>
+                        <button href="javascript:void(0)" onclick="notiEvento(\'' . $eventid . '\')"
+                            class="btn btn-outline-warning btn-sm"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="Mandar notificaciones">
+                            <i class="far fa-bell"></i>
                             </button>
 
                         </div>';
+
             })
             ->rawColumns(['action', 'eventonombre', 'eventodescrip', 'eventohoraini','eventohorafin','eventofechaini','eventofechafin','eventoimage'])
             ->make(true);
@@ -74,6 +90,21 @@ $alleventos = CATEventos::getEventos();
 
 protected function editeventos(Request $request, $idevento){
     dd("hola");
+}
+
+protected function getAnimals(){
+  $Animales = ANIMales::all();
+    $hash       = new Hashids('', 20);
+    #dd($publicaciones);
+    $response = array();
+    foreach ($Animales as $An){
+        $response[] = array(
+            "id"=>$hash->encode($An->getId()),
+            "text"=>$An->getNombre()
+        );
+    }
+    echo json_encode($response);
+    exit;
 }
 }
 
