@@ -2,7 +2,14 @@
 
 @section('content')
     @include('layouts.headers.header')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.js"defer></script>
+    <style>
+        .progress { position:relative; width:100%; }
+        .bar { background-color: #00ff00; width:0%; height:20px; }
+        .percent { position:absolute; display:inline-block; left:50%; color: #040608;}
+    </style>
     <div class="container-fluid mt--7" style="background-color: white">
 
         <div class="row mt-5">
@@ -91,7 +98,7 @@
                             <label for="select">Lista de animales disponibles:</label>
                             <br>
                             <select name="select" id='select' style='width: 200px;' class="form-control">
-                                <option value='0'> Seleccione un animal</option>
+                                <option value=''> Seleccione un animal</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -100,7 +107,7 @@
                         </div>
                         <div class="form-group">
                             <label for="name">Contenido de la publicación:</label>
-                            <input type="text" class="form-control" id="descrip" name="descrip">
+                            <input type="text" class="form-control" id="contenido" name="contenido">
                         </div>
 
                         <div class="form-group">
@@ -108,10 +115,18 @@
                             <input  type="file" class="form-control" id="imageanimal" name="imageanimal">
                         </div>
                         <div class="form-group">
-                            <label for="eventeimage">Video de la publicación:</label>
-                            <input  type="file" class="form-control" id="videoanimal" name="videoanimal">
+                            <label for="videoanimal">Imagen de la publicación:</label>
+                            <input name="videoanimal" id="videoanimal" type="file" class="form-control"><br/>
+                          <!--<div class="progress">
+                                <div class="bar"></div >
+                                <br>
+                                <div class="percent">0%</div >
+                            </div>
+                            <br>---->
+
+
                         </div>
-                        <button type="button" class="btn btn-primary" href="javascript:void(0)" onclick="addInformation()">Guardar animal</button>
+              <button type="button" class="btn btn-primary" href="javascript:void(0)" onclick="addPost()">Crear publicación</button>
 
                     </form>
                 </div>

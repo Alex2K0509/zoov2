@@ -45,4 +45,14 @@ class ANIMales extends Model
     {
         return $this->getAttribute('an_especie');
     }
+
+
+    #RELATIONS
+    public function publicaciones()
+    {
+        return $this->hasMany('App\Models\PUBLICACIONES\PUBlicaciones', 'pub_animal', 'an_id');
+    }
+
+
+
 }

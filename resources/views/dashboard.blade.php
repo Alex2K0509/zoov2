@@ -37,20 +37,24 @@
                     </div>
 
             </div>
+        <br>
+        <br>
+        <br>
         <div class="row">
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title mt-0 mb-0 header-title">Animales creados</h5>
+                        <h5 class="card-title mt-0 mb-0 header-title">Publicaciones creadas</h5>
                         <br>
-                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podra editar un animal,eliminar o modificar en caso de ser necesario.</h6>
+                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podra editar una publicación,eliminar o modificar en caso de ser necesario.</h6>
 
 
                         <table id="example2" class="table table-striped table-bordered dataTable responsive" style="width:100%" role="grid" aria-describedby="example_info">
                             <thead>
                             <tr style="width: 100%">
-                                <th  scope="col">Nombre del animal</th>
-                                <th class="contenido-tablas-descripcion" scope="col">especie del animal</th>
+                                <th  scope="col">Animal de la publicación</th>
+                                <th  scope="col">Titulo de la publicación</th>
+                                <th class="contenido-tablas-descripcion" scope="col">Contenido de la publicación</th>
                                 <th scope="col">Fecha de creación</th>
                                 <th scope="col">Acciones</th>
 
@@ -67,7 +71,7 @@
             </div>
 
         </div>
-        </div>
+
 
 
     </div>

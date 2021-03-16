@@ -65,8 +65,51 @@ class PUBlicaciones extends Model
     {
         return $this->getAttribute('pub_video');
     }
+    public function setAnimal($anim)
+    {
+        $this->setAttribute('pub_animal', $anim);
+        return $this;
+    }
+
+    public function getAnimal()
+    {
+        return $this->getAttribute('pub_animal');
+    }
+
+    public function setCreatedAt($video)
+    {
+        $this->setAttribute('pub_created_at', $video);
+        return $this;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->getAttribute('pub_created_at');
+    }
 
 
 
+    #publicaciones estaticas
+
+public static function getPosts($id,$params =[]){
+    $query = self::join('animales','an_id','=','pub_animal')
+        ->where('pub_animal','=',$id);
+
+    if(isset($params['month']) and !is_null($params['month'])){
+             $query->whereMonth( 'pub_created_at',$params['month']);
+         }
+    if(isset($params['year']) and !is_null($params['year'])){
+        $query->whereYear( 'pub_created_at',$params['year']);
+    }
+    $query->GroupBy('pub_id')->OrderBy('pub_id','DESC')->paginate($params['take']);
+
+    return $query;
+}
+
+#relaciones
+    public function animales()
+    {
+        return $this->belongsTo('App\Models\ANIMALES\ANIMales', 'pub_animal', 'an_id');
+    }
 
 }

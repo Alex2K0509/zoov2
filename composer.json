@@ -13,10 +13,12 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "hashids/hashids": "^4.1",
+        "james-heinrich/getid3": "^1.9",
         "laravel-frontend-presets/argon": "^1.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
+        "pbmedia/laravel-ffmpeg": "^7.5",
         "superbalist/laravel-google-cloud-storage": "^2.2",
         "yajra/laravel-datatables-oracle": "~9.0"
     },

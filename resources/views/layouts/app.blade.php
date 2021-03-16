@@ -47,6 +47,9 @@
 
 
     <style>
+        .bg-secondary {
+            background-color: #ffffff !important;
+        }
         .page-item .page-link, .page-item span {
             font-size: .875rem;
             display: flex;

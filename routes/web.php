@@ -46,7 +46,14 @@ Route::group(['middleware' => 'auth'], function () {
     #ruta para editar un evento
     #Route::get('/edit/evento', 'App\Http\Controllers\Catalogos\RecordsController@editEventos')->name('edit.eventos');
 });
+#rutas para formar los data tables
 Route::get('/table/eventos', 'App\Http\Controllers\Records\RecordsController@tableeventos')->name('table.eventos');
+Route::get('/table/pubs', 'App\Http\Controllers\Records\RecordsController@tablepublicaciones')->name('table.pubs');
+#rutas pára los editar la información de los modales
 Route::get('/edit/eventos', 'App\Http\Controllers\Records\RecordsController@editeventos')->name('edit.eventos');
+Route::get('/edit/publicaciones', 'App\Http\Controllers\Records\RecordsController@editPublicaciones')->name('edit.publicaciones');
+
+#RUTAS PARA EL SELEC2 HE INSERCIÓN DE POST
 Route::post('/all/animals', 'App\Http\Controllers\Records\RecordsController@getAnimals')->name('all.animals');
+Route::post('/insert/post', 'App\Http\Controllers\Publicaciones\PublicacionesController@inserPost')->name('insert.post');
 

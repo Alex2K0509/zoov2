@@ -16,6 +16,12 @@ use Hashids\Hashids;
 
 class RecordsController extends Controller
 {
+    /**
+     * @autor Alex vergara
+     * @function Retorna la datatable de eventos
+     * @param request
+     * @return mixed
+     */
 protected function tableeventos(Request $request){
 $alleventos = CATEventos::getEventos();
     $hash = new Hashids('', 10);
@@ -91,11 +97,15 @@ $alleventos = CATEventos::getEventos();
 protected function editeventos(Request $request, $idevento){
     dd("hola");
 }
-
+    /**
+     * @autor Alex vergara
+     * @function Retorna la la info de los animales para el select2
+     * @param request
+     * @return mixed
+     */
 protected function getAnimals(){
   $Animales = ANIMales::all();
     $hash       = new Hashids('', 20);
-    #dd($publicaciones);
     $response = array();
     foreach ($Animales as $An){
         $response[] = array(
@@ -106,5 +116,81 @@ protected function getAnimals(){
     echo json_encode($response);
     exit;
 }
+
+    /**
+     * @autor Alex vergara
+     * @function Retorna la datatable de las publicaciones
+     * @param request
+     * @return mixed
+     */
+protected function tablepublicaciones(Request $request)
+{
+
+    $allPublicaciones = PUBlicaciones::with('animales')->get();
+
+    $hash = new Hashids('', 10);
+
+    if($request->ajax()){
+        return Datatables::of($allPublicaciones)
+            ->addIndexColumn()
+            ->addColumn('animalpub', function ($data) {
+                $desc = $data->animales->getNombre();
+                $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                return $btn;
+            })
+            ->addColumn('titulopub', function ($data) {
+                $desc = $data->getTitle();
+                $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                return $btn;
+            })
+            ->addColumn('contenidopub', function ($data) {
+                $desc = $data->getDescrip();
+                $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                return $btn;
+            })
+            ->addColumn('createdpub', function ($data) {
+                $desc = $data->getCreatedAt();
+                $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                return $btn;
+            })
+            ->addColumn('action', function ($data) use ($hash) {
+                $pubtid = $hash->encode($data->pub_id);
+                return '<div>
+                            <button href="javascript:void(0)" onclick="deleteEvento(\'' . $pubtid . '\')"
+                            class="btn btn-outline-danger btn-sm"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="Eliminar publicación">
+                            <i class="fa fa-trash"></i>
+                            </button>
+                <button href="javascript:void(0)" onclick="editEvento(\'' . $pubtid . '\')"
+                            class="btn btn-outline-success btn-sm"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="Editar publicación">
+                            <i class="far fa-edit"></i>
+                            </button>
+                        <button href="javascript:void(0)" onclick="notiEvento(\'' . $pubtid . '\')"
+                            class="btn btn-outline-warning btn-sm"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="Mandar notificaciones">
+                            <i class="far fa-bell"></i>
+                            </button>
+
+                        </div>';
+
+            })
+            ->rawColumns(['animalpub', 'titulopub', 'contenidopub', 'createdpub','action'])
+            ->make(true);
+    }
+
+}
+
+protected function editPublicaciones(Request $request){
+    dd("hola");
+}
+
+
 }
 

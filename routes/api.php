@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+#API PARA OBTENER TODOS LOS EVENTOS
+Route::get('/get/eventos', 'App\Http\Controllers\APIS\ApiController@getEventos');
+#API PARA OBTENER TODOS LOS ANIMALES
+Route::get('/get/animales', 'App\Http\Controllers\APIS\ApiController@getAnimales');
+#API PARA OBTENER LAS PUBLICACIONES
+Route::post('/get/publicaciones', 'App\Http\Controllers\APIS\ApiController@getPublicaciones');
