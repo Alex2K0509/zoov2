@@ -72,7 +72,69 @@
 
         </div>
 
+        <div class="modal fade" id="modal-evento" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myLargeModalLabel">Editar evento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
 
+                        <div class="row">
+
+                            <div class="col-12">
+
+                                <form role="form" id="upload-animal-form" enctype="multipart/form-data" method="post">
+                                    <div class="form-group">
+                                        <p>Seleccione los atributos que desee actualizar</p>
+                                        <label for="nameEve">Nombre del evento:</label>
+                                        <input type="text" class="form-control" id="nameEve" name="nameEve">
+                                    </div>
+
+                                    <div class="form-group">
+                                        
+                                        <label for="descripEve">Descripción del evento:</label>
+                                        <input type="text" class="form-control" name="descripEve" id="descripEve">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Horaini">Hora de inicio del evento:</label>
+                                        <input type="time" class="form-control" name="Horaini" id="Horaini">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Horafin">Hora de finalización del evento:</label>
+                                        <input type="time" class="form-control" name="Horafin" id="Horafin">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Fechaini">Fecha inicial del evento:</label>
+                                        <input type="date" class="form-control" name="Fechaini" id="Fechaini">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="eveimage">Imagen promocional del evento:</label>
+                                        <input type="file" class="form-control" name="eveimage" id="eveimage">
+                                    </div>
+
+
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" href="javascript:void(0)" onclick="updateEve()" class="btn btn-outline-primary">Actualizar evento</button>
+
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+
+        </div>
 
     </div>
 @endsection

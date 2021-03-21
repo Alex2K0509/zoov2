@@ -58,6 +58,7 @@ $alleventos = CATEventos::getEventos();
                 return $btn;
             })
             ->addColumn('action', function ($data) use ($hash) {
+                // onclick="editEvento(\'' . $eventid . '\')"
                 $eventid = $hash->encode($data->eve_eve);
                 return '<div>
                             <button href="javascript:void(0)" onclick="deleteEvento(\'' . $eventid . '\')"
@@ -67,9 +68,11 @@ $alleventos = CATEventos::getEventos();
                             title="Eliminar evento">
                             <i class="fa fa-trash"></i>
                             </button>
-                <button href="javascript:void(0)" onclick="editEvento(\'' . $eventid . '\')"
+
+                <button href="javascript:void(0)"
+                            data-target="#modal-evento"
                             class="btn btn-outline-success btn-sm"
-                            data-toggle="tooltip"
+                            data-toggle="modal"
                             data-placement="bottom"
                             title="Editar evento">
                             <i class="far fa-edit"></i>
@@ -88,9 +91,7 @@ $alleventos = CATEventos::getEventos();
             ->rawColumns(['action', 'eventonombre', 'eventodescrip', 'eventohoraini','eventohorafin','eventofechaini','eventofechafin','eventoimage'])
             ->make(true);
     }
-    return view('dashboard', [
-        'eventos' => $alleventos,
-    ]);
+    return view('dashboard', compact('alleventos'));
 
 }
 

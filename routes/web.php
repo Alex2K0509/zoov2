@@ -25,13 +25,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Auth::routes();
 
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
+#Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
+Route::get('/home', 'App\Http\Controllers\Records\RecordsController@tableeventos')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('user', 'App\Http\Controllers\UserController@index')->name('user.index'); #pagina inicial
+	Route::get('user', 'App\Http\Controllers\Records\UserController@index')->name('user.index'); #pagina inicial
 
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']); #perfil del usuario
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']); #actualizar info
