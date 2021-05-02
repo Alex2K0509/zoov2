@@ -20,11 +20,11 @@ protected function inserPost(Request $request){
 
     $validator = Validator::make($request->all(), [
         'select' => 'required',
-        'videoanimal' => 'required',
+        //'videoanimal' => 'required',
         'title'=>'required',
         'contenido'=>'required',
         'imageanimal' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'videoanimal' => 'required|mimes:mp4|max:100000',
+        //'videoanimal' => 'required|mimes:mp4|max:100000',
 
     ]);
 
@@ -54,14 +54,16 @@ try{
     #dd($animalHash[0]);
     #dd($hash->decode(implode(",", $data['select'])));
 
-
-    #subiendo video a la nube y obteniendo el url del video.
+/*
+ *  #subiendo video a la nube y obteniendo el url del video.
     $video = $request->file('videoanimal');
     $videoName = Str::random(10).'.'.$video->getClientOriginalExtension();
     $filePath = 'videos/' . $videoName;
     $diskVideo = \Storage::disk('gcs')->put($filePath, file_get_contents($video),'public');
     $gcsVideo = \Storage::disk('gcs');
     $videourl = $gcsVideo->url('videos'. "/" .$videoName);
+ */
+
 
     #subiendo images a la nube y obteniendo el url del video.
     $image = $request->file('imageanimal');
@@ -69,7 +71,7 @@ try{
     $filePath = 'images/' . $ImageName;
     $diskImage = \Storage::disk('gcs')->put($filePath, file_get_contents($image),'public');
     $gcsImage = \Storage::disk('gcs');
-    $imageurl = $gcsImage->url('videos'. "/" .$ImageName);
+    $imageurl = $gcsImage->url('images'. "/" .$ImageName);
 
 
     DB::beginTransaction();
@@ -77,7 +79,7 @@ try{
     $NewPost->setTitle($data['title']);
     $NewPost->setDescrip($data['contenido']);
     $NewPost->setImage($imageurl);
-    $NewPost->setVideo($videourl);
+   // $NewPost->setVideo($videourl);
     $NewPost->setAnimal($animalHash[0]);
     $NewPost->save();
     DB::commit();

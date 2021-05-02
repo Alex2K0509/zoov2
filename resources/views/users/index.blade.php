@@ -114,18 +114,15 @@
                             <label for="eventeimage">Imagen de la publicación:</label>
                             <input  type="file" class="form-control" id="imageanimal" name="imageanimal">
                         </div>
-                        <div class="form-group">
+
+                        <!--  <div class="form-group">
                             <label for="videoanimal">Imagen de la publicación:</label>
                             <input name="videoanimal" id="videoanimal" type="file" class="form-control"><br/>
-                          <!--<div class="progress">
-                                <div class="bar"></div >
-                                <br>
-                                <div class="percent">0%</div >
-                            </div>
-                            <br>---->
+
 
 
                         </div>
+                          <br>---->
               <button type="button" class="btn btn-primary" href="javascript:void(0)" onclick="addPost()">Crear publicación</button>
 
                     </form>

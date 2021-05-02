@@ -71,7 +71,41 @@
             </div>
 
         </div>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mt-0 mb-0 header-title">Animales creados</h5>
+                        <br>
+                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podra editar un animal,eliminar o modificar en caso de ser necesario.</h6>
 
+
+                        <table id="example3" class="table table-striped table-bordered dataTable responsive" style="width:100%" role="grid" aria-describedby="example_info">
+                            <thead>
+                            <tr style="width: 100%">
+                                <th  scope="col">Nombre del animal</th>
+                                <th  scope="col">Especie del animal</th>
+                                <th scope="col">Fecha de creación</th>
+                                <th scope="col">Acciones</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!------Modal del los eventos------->
         <div class="modal fade" id="modal-evento" tabindex="-1" role="dialog"
              aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
@@ -88,7 +122,7 @@
 
                             <div class="col-12">
 
-                                <form role="form" id="upload-animal-form" enctype="multipart/form-data" method="post">
+                                <form role="form" id="form-eve" enctype="multipart/form-data" method="post">
                                     <div class="form-group">
                                         <p>Seleccione los atributos que desee actualizar</p>
                                         <label for="nameEve">Nombre del evento:</label>
@@ -96,9 +130,9 @@
                                     </div>
 
                                     <div class="form-group">
-                                        
+
                                         <label for="descripEve">Descripción del evento:</label>
-                                        <input type="text" class="form-control" name="descripEve" id="descripEve">
+                                        <input type="text"  class="form-control" name="descripEve" id="descripEve">
                                     </div>
                                     <div class="form-group">
                                         <label for="Horaini">Hora de inicio del evento:</label>
@@ -113,8 +147,17 @@
                                         <input type="date" class="form-control" name="Fechaini" id="Fechaini">
                                     </div>
                                     <div class="form-group">
-                                        <label for="eveimage">Imagen promocional del evento:</label>
-                                        <input type="file" class="form-control" name="eveimage" id="eveimage">
+                                        <label for="Fechafin">Fecha final del evento:</label>
+                                        <input type="date" class="form-control" name="Fechafin" id="Fechafin">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="eveimage">Imagen actual del evento:</label>
+                                        <br>
+                                        <img id="eveimage" name="eveimage" src="" class="img img-thumbnail" width="360px">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="updafile">Imagen promocional del evento:</label>
+                                        <input type="file" class="form-control" name="updafile" id="updafile">
                                     </div>
 
 
@@ -128,7 +171,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" href="javascript:void(0)" onclick="updateEve()" class="btn btn-outline-primary">Actualizar evento</button>
+                        <button type="button" href="javascript:void(0)" onclick="editEvento()" class="btn btn-outline-primary" data-id="" id="updateeve">Actualizar evento</button>
 
                     </div>
                 </div><!-- /.modal-content -->
@@ -136,6 +179,113 @@
 
         </div>
 
+        <!------Modal del las publicaciones------->
+        <div class="modal fade" id="modal-publis" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myLargeModalLabel">Editar publicación</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+
+                            <div class="col-12">
+
+                                <form role="form" id="fomr-publi" enctype="multipart/form-data" method="post">
+                                    <div class="form-group">
+                                        <p>Seleccione los atributos que desee actualizar</p>
+                                        <label for="titlepubli">Titulo de la publicación:</label>
+                                        <input type="text" class="form-control" id="titlepubli" name="titlepubli">
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label for="decrippubli">Contenido de la publicación:</label>
+                                        <input type="text"  class="form-control" name="decrippubli" id="decrippubli">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="imagepubli">Imagen actual de la publicación:</label>
+                                        <br>
+                                        <img id="imagepubli" name="imagepubli" src="" class="img img-thumbnail" width="360px">
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="updaimagefile">Imagen promocional de la publicación:</label>
+                                        <input type="file" class="form-control" name="updaimagefile" id="updaimagefile">
+                                    </div>
+
+
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" href="javascript:void(0)" data-id="" id="updatePubli" onclick="updatePubli()" class="btn btn-outline-primary">Actualizar Publicación</button>
+
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+
+        </div>
+
+        <!------Modal del los animales------->
+        <div class="modal fade" id="modal-animales" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myLargeModalLabel">Editar animal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+
+                            <div class="col-12">
+
+                                <form role="form" id="fomr-animal" enctype="multipart/form-data" method="post">
+                                    <div class="form-group">
+                                        <p>Seleccione los atributos que desee actualizar</p>
+                                        <label for="animalname">Nombre del animal de la publicación:</label>
+                                        <input type="text" class="form-control" id="animalname" name="animalname">
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label for="especieanimal">Especie del animal:</label>
+                                        <input type="text"  class="form-control" name="especieanimal" id="especieanimal">
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" href="javascript:void(0)" data-id="" id="updaanimal" onclick="updateAnimal()" class="btn btn-outline-primary">Actualizar Animal</button>
+
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+
+        </div>
     </div>
 @endsection
 

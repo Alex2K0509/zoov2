@@ -23,3 +23,5 @@ Route::get('/get/eventos', 'App\Http\Controllers\APIS\ApiController@getEventos')
 Route::get('/get/animales', 'App\Http\Controllers\APIS\ApiController@getAnimales');
 #API PARA OBTENER LAS PUBLICACIONES
 Route::post('/get/publicaciones', 'App\Http\Controllers\APIS\ApiController@getPublicaciones');
+#RUTA PARA EL WEBHOO
+Route::post('webhook/tokens','App\Http\Controllers\WEBHOOK\NotiWebhookController@webHooks');

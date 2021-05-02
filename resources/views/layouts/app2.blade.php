@@ -8,6 +8,25 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title> zoo-control</title>
+
+        <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+        <!-- Firebase App is always required and must be first -->
+        <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-app.js"></script>
+
+        <!-- Add additional services that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-messaging.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-functions.js"></script>
+
+        <!-- firebase integration end -->
+
+        <!-- Comment out (or don't include) services that you don't want to use -->
+        <!-- <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-storage.js"></script> -->
+        <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-analytics.js"></script>
+
+
         <!-- Favicon -->
         <link href="{{ asset('argon') }}/img/brand/white.png" rel="icon" type="image/png">
         <!-- Fonts -->
@@ -44,6 +63,11 @@
         <!---js para select2-->
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+
+
+
+
+
         <style>
     .page-item .page-link, .page-item span {
         font-size: .875rem;
@@ -67,6 +91,10 @@
     .page-item.active .page-link {
         box-shadow: 0 7px 14px rgb(50 50 93 / 10%), 0 3px 6px rgb(0 0 0 / 8%);
         width: 30px;
+    }
+    .modal-body {
+        max-height: calc(100vh - 143px);
+        overflow-y: auto;
     }
 </style>
 

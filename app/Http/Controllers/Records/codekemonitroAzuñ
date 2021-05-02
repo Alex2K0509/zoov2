@@ -1,0 +1,288 @@
+/*----------------------------------------------------------------------------*/
+/*                                                                            */
+/*    Module:       main.cpp                                                  */
+/*    Author:       C:\Users\aleex                                            */
+/*    Created:      Sat Mar 20 2021                                           */
+/*    Description:  Competition Template                                               */
+/*                                                                            */
+/*----------------------------------------------------------------------------*/
+ 
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Drivetrain           drivetrain    10, 9, 1, 2     
+// Controller1          controller                    
+// EngraDer             motor         11              
+// EngraIzq             motor         20              
+// PaleAtrDer           motor         12              
+// PaleAtrIzq           motor         19              
+// PaleDelIzq           motor         18              
+// PalDelDer            motor         13              
+// RielDer              motor         14              
+// RielIzq              motor         17              
+// Vision6              vision        6               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+
+#include "vex.h"
+
+using namespace vex;
+// A global instance of competition
+competition Competition;
+motor_group   plataforma = motor_group( EngraDer, EngraIzq );
+motor_group   paletasDel = motor_group(PalDelDer,PaleDelIzq);
+motor_group   paletasAtr = motor_group(PaleAtrDer, PaleAtrIzq);
+motor_group   paletas = motor_group(PalDelDer,PaleDelIzq,PaleAtrDer, PaleAtrIzq);
+motor_group   rieles = motor_group(RielDer,RielIzq);
+// define your global instances of motors and other devices here
+
+/*---------------------------------------------------------------------------*/
+/*                          Pre-Autonomous Functions                         */
+/*                                                                           */
+/*  You may want to perform some actions before the competition starts.      */
+/*  Do them in the following function.  You must return from this function   */
+/*  or the autonomous and usercontrol tasks will not be started.  This       */
+/*  function is only called once after the V5 has been powered on and        */
+/*  not every time that the robot is disabled.                               */
+/*---------------------------------------------------------------------------*/
+
+
+void pre_auton(void) {
+  // Initializing Robot Configuration. DO NOT REMOVE!
+  vexcodeInit();
+   Drivetrain.setDriveVelocity(100, percent);
+
+  //velocidad de los engranes para subir/bajar plataforma
+  EngraDer.setVelocity(100,percent);
+  EngraIzq.setVelocity(100,percent);
+  
+}
+/*---------------------------------------------------------------------------*/
+/*                                                                           */
+/*                              Autonomous Task                              */
+/*                                                                           */
+/*  This task is used to control your robot during the autonomous phase of   */
+/*  a VEX Competition.                                                       */
+/*                                                                           */
+/*  You must modify the code to add your own robot specific commands here.   */
+/*---------------------------------------------------------------------------*/
+void avanzar(float pulgadas){
+ Drivetrain.driveFor(forward,pulgadas,inches);
+}
+void retroceder(float pulgadas){
+   Drivetrain.setDriveVelocity(60, percent);
+ Drivetrain.driveFor(reverse,pulgadas,inches);
+}
+void girarDer(float grados){
+  Drivetrain.turnFor(right, grados, degrees);
+}
+void girarIzq(float grados){
+    Drivetrain.turnFor(left, grados, degrees);
+}
+void platSub(float grados){
+plataforma.spinFor(forward,grados,degrees);
+}
+void platBaj(float grados){
+ plataforma.setVelocity(35,percent);
+plataforma.spinFor(reverse,grados,degrees);
+}
+void sacar(float grados){
+  paletas.setVelocity(100,percent);
+  paletas.spinFor(reverse,120*17,degrees);
+}
+void meter(){
+  paletas.setVelocity(100,percent);
+  paletas.spinFor(forward,120*17,degrees);
+}
+void avanzarTomar(int dist){
+  //velocidades
+  paletasDel.setVelocity(100,percent);
+  paletasAtr.setVelocity(15,percent);
+  Drivetrain.setDriveVelocity(40, percent);
+  //paletas
+  paletasDel.spin( forward, 100, percent );
+  paletasAtr.spin( forward, 100, percent );
+  Drivetrain.driveFor(forward,dist,inches);
+  //detener
+  paletasAtr.stop();
+  paletasDel.stop();
+}
+void avanzarSubir(float dist){
+  //velocidades
+  paletasDel.setVelocity(100,percent);
+  paletasAtr.setVelocity(15,percent);
+  Drivetrain.setDriveVelocity(40, percent);
+  //paletas
+ plataforma.spinFor(forward,93*7,degrees);
+  Drivetrain.driveFor(forward,dist,inches);
+  //detener
+  paletasAtr.stop();
+  paletasDel.stop();
+}
+void atrasTomar(int dist){
+  //velocidades
+  paletasDel.setVelocity(100,percent);
+  paletasAtr.setVelocity(15,percent);
+  Drivetrain.setDriveVelocity(60, percent);
+  //paletas
+  paletasDel.spin( forward, 100, percent );
+  paletasAtr.spin( forward, 100, percent );
+  Drivetrain.driveFor(reverse,dist,inches);
+  //detener
+  paletasAtr.stop();
+  paletasDel.stop();
+}
+
+void autonomous(void) {
+      girarIzq(120);
+      avanzarSubir(16.5);
+      //avanzar(17.5);
+      wait(500,msec); 
+     // platSub(95*7);
+      sacar(120*17);//metiendo la primera pelota
+      retroceder(15);
+      platBaj(97*7);
+      wait(500,msec); 
+      girarDer(23);
+      avanzarTomar(25);//llendo por la segunda pelota
+      meter();
+      girarDer(190);
+      avanzarSubir(40);
+      girarDer(40);
+      avanzar(7.5);
+      wait(500,msec); 
+      sacar(120*17);//metiendo la segunda pelota
+      retroceder(15);
+      wait(500,msec); 
+      platBaj(97*7);
+      wait(500,msec); 
+      girarIzq(40);
+      // avanzarTomar(75);
+      avanzar(80);
+      girarDer(55);
+      avanzarTomar(15);
+      wait(500,msec); 
+       atrasTomar(15);
+       platSub(95*7);
+       avanzar(13);
+        wait(500,msec); 
+       // girarIzq(20);
+      sacar(120*17);//metiendo la tercera pelota
+      Drivetrain.stop();
+      //float giro =90*7;
+      //avanzarTomar();
+    //  meter(45*7);
+     // wait(500,msec);
+      //sacar(120*17);
+ 
+}
+ 
+/*---------------------------------------------------------------------------*/
+/*                                                                           */
+/*                              User Control Task                            */
+/*                                                                           */
+/*  This task is used to control your robot during the user control phase of */
+/*  a VEX Competition.                                                       */
+/*                                                                           */
+/*  You must modify the code to add your own robot specific commands here.   */
+/*---------------------------------------------------------------------------*/
+
+
+
+void usercontrol(void) {
+  while (1) {
+/*---------------------------------------------------------------------------*/
+/*                      INICIANDO EL CHASIS                                  */
+/*---------------------------------------------------------------------------*/
+    Drivetrain.power();
+  
+/*---------------------------------------------------------------------------*/
+/*               ASCENSO Y DESCENSO DE LA PLATAFORMA DE LAS PELOTAS          */
+/*---------------------------------------------------------------------------*/
+if(Controller1.ButtonL1.pressing()){
+  EngraDer.startRotateTo( 600, rotationUnits::deg, 50, velocityUnits::pct );
+  EngraIzq.startRotateTo( 600, rotationUnits::deg, 50, velocityUnits::pct );   
+}else if(Controller1.ButtonR1.pressing()){
+    EngraDer.spin(reverse);
+    EngraIzq.spin(reverse);
+  }else{
+    EngraDer.stop();
+    EngraIzq.stop();
+}
+/*---------------------------------------------------------------------------*/
+/*               ABSORCIÓN Y EXPULSIÓN DE LAS PELOTAS DE LA PLATOFORMA        */
+/*---------------------------------------------------------------------------*/
+if(Controller1.ButtonL2.pressing()){
+  PaleAtrDer.setVelocity(15,percent);
+  PaleAtrIzq.setVelocity(15,percent);
+  PalDelDer.setVelocity(100,percent);
+  PaleDelIzq.setVelocity(100,percent);
+
+  PaleAtrDer.spin(forward);
+  PalDelDer.spin(forward);
+  PaleDelIzq.spin(forward);
+  PaleAtrIzq.spin(forward);
+}else if(Controller1.ButtonR2.pressing()){
+  PaleAtrDer.setVelocity(100,percent);
+  PaleAtrIzq.setVelocity(100,percent);
+  PalDelDer.setVelocity(100,percent);
+  PaleDelIzq.setVelocity(100,percent);
+  
+  PaleAtrDer.spin(reverse);
+  PalDelDer.spin(reverse);
+  PaleAtrIzq.spin(reverse);
+  PaleDelIzq.spin(reverse);
+}else{
+  PaleAtrDer.stop();
+  PaleAtrIzq.stop(); 
+  PalDelDer.stop();
+  PaleDelIzq.stop();
+}
+  /*---------------------------------------------------------------------------*/
+/*              RIELES                                                        */
+/*---------------------------------------------------------------------------*/
+
+if(Controller1.ButtonUp.pressing()){
+  RielDer.setVelocity(30,percent);
+  RielIzq.setVelocity(30,percent);
+  //  RielDer.startRotateTo( -250, rotationUnits::deg, 50, velocityUnits::pct );
+  //RielIzq.startRotateTo( -250, rotationUnits::deg, 50, velocityUnits::pct );
+RielDer.spin(reverse);
+  RielIzq.spin(reverse);
+
+
+}else if(Controller1.ButtonDown.pressing()){
+RielDer.setVelocity(50,percent);
+  RielIzq.setVelocity(50,percent);
+
+   RielDer.spin(forward);
+  RielIzq.spin(forward);
+ 
+}else{
+  RielDer.stop();
+  RielIzq.stop();
+}
+  
+  wait(20, msec); // Sleep the task for a short amount of time to
+                    // prevent wasted resources.
+  
+  }
+
+
+
+}
+//
+// Main will set up the competition functions and callbacks.
+//
+int main() {
+   // Set up callbacks for autonomous and driver control periods.
+  Competition.autonomous(autonomous);
+  Competition.drivercontrol(usercontrol);
+
+  // Run the pre-autonomous function.
+  pre_auton();
+
+  // Prevent main from exiting with an infinite loop.
+  while (true) {
+    wait(100, msec);
+  }
+}
