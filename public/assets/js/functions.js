@@ -15,7 +15,7 @@ function addEvento() {
     formEvento.append('timeini', $('#timeini').val());
     formEvento.append('timefin', $('#timefin').val());
 
-    //console.log(formJavier.foto);
+    console.log(formEvento);
     Swal.fire({
         title: '¿Estas seguro que deseas crear este evento?',
         showDenyButton: true,
@@ -277,7 +277,7 @@ function editEvento(){
         }
     });
     let id = $('#updateeve').data('id');
-    console.log(id);
+    //console.log(id);
     let formEvento = new FormData();
     formEvento.append('name', $('#nameEve').val());
     formEvento.append('descrip', $('#descripEve').val());
@@ -782,7 +782,64 @@ function notiPost(id){
     })
 
 }
+function editPic(){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    let formPic = new FormData();
+    formPic.append('imageProfile', $('#imagep')[0].files[0]);
+//console.log(formPic.imageProfile);
+    Swal.fire({
+        title: '¿Estas seguro que deseas actualizar la imagen de perfil?',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: `Actualizar`,
+        denyButtonText: `Cancelar`,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: "Procesando...",
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                willOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "http://127.0.0.1:8000/profile/edit/pic",
+                data: formPic,
+                contentType: false,
+                processData: false,
+                success:function(response){
+                    if(response.success){
+                        //$("#updafile").trigger('reset');
+                        //$('#modal-evento').modal('hide');
+                        //$('#example').DataTable().ajax.reload();divImage
+                        $('#picimage').attr('src', response.image);
+                        //$("#divImage").load(" #divImage");
+                        Swal.fire(response.message, '', 'success')
+                    }else{
+                        Swal.close();
+                        Swal.fire(
+                            "Error",
+                            response.message,
+                            "error"
+                        );
+                        // alert(response.message)
+                    }
+                },
+            })
 
+        } else if (result.isDenied) {
+
+            Swal.close();
+        }
+    })
+
+}
 $(document).ready(function() {
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     //tabla para editar eventos

@@ -397,6 +397,7 @@ class RecordsController extends Controller
     protected function editpubs(Request $request)
     {
         $imageEve = $request->file('updaimagefile');
+        #dd($imageEve);
         if (!is_null($imageEve)) {
             $validator = Validator::make($request->all(), [
                 'eventeimage' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',

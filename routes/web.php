@@ -82,4 +82,6 @@ Route::group(['middleware' => 'auth'], function () {
     #RUTAS PARA ENVIAR NOTIFICACIONES DE LOS EVENTOS Y PUBLICACIONES
     Route::post('/notification/eventos', 'App\Http\Controllers\Records\RecordsController@sentNofitication')->name('noti.eventos');
     Route::post('/notification/post', 'App\Http\Controllers\Records\RecordsController@sentNofiticationPost')->name('noti.posts');
+    #RUTAS PARA EDITAR LA IMAGEN DE PERFIL
+    Route::post('/profile/edit/pic', 'App\Http\Controllers\ProfileController@editPic')->name('edit.pic');
 });

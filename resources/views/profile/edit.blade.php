@@ -5,7 +5,7 @@
         'title' => __('Bienvenido') . ' '. auth()->user()->name,
         'description' => __(' En esta sección podras modificar tu información personal, como tu imagen, contraseña o datos privados.'),
         'class' => 'col-lg-7'
-    ])   
+    ])
 
     <div  class="container-fluid mt--7" style="background-color: white">
         <div class="row" >
@@ -13,21 +13,21 @@
                 <div class="card card-profile shadow">
                     <div class="row justify-content-center">
                         <div class="col-lg-3 order-lg-2">
-                            <div class="card-profile-image">
-                                <a href="#">
-                                    <img src="{{ asset('argon') }}/img/theme/team-4-800x800.jpg" class="rounded-circle">
+                            <div class="card-profile-image" id="divImage">
+                                <a>
+                                    <img src="{{empty(auth()->user()->getPic()) ?"/assets/img/default.jpg":auth()->user()->getPic()   }}" class="rounded-circle" id="picimage">
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                       
+
                     </div>
                     <div class="card-body pt-0 pt-md-4">
                         <div class="row">
                             <div class="col">
                                 <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -35,11 +35,15 @@
                             <h3>
                                 {{ auth()->user()->name }}<span class="font-weight-light"></span>
                             </h3>
-                            <form class="form-inline" action="/action_page.php">
-                                <label for="imagep">Nueva imagen de perfil</label>
-                                <input type="file" class="form-control" id="imagep">
-                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                            <form role="form"  id="formPic" enctype="multipart/form-data" method="post" >
+
+                                <input type="file" class="form-control" id="imagep" name="imagep">
+
                               </form>
+                            <button href="javascript:void(0)" onclick="editPic()"
+                                    class="btn btn-outline-primary"
+                                    title="Actualizar imagen">
+                                Actualizar imagen</button>
                         </div>
                     </div>
                 </div>
@@ -57,7 +61,7 @@
                             @method('put')
 
                             <h6 class="heading-small text-muted mb-4">{{ __('Información del usuario.') }}</h6>
-                            
+
                             @if (session('status'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                                     {{ session('status') }}
@@ -115,7 +119,7 @@
                                 <div class="form-group{{ $errors->has('old_password') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-current-password">{{ __('Contraseña actual') }}</label>
                                     <input type="password" name="old_password" id="input-current-password" class="form-control form-control-alternative{{ $errors->has('old_password') ? ' is-invalid' : '' }}" placeholder="{{ __('Contraseña actual') }}" value="" required>
-                                    
+
                                     @if ($errors->has('old_password'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('old_password') }}</strong>
@@ -125,7 +129,7 @@
                                 <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-password">{{ __('Nueva contraseña') }}</label>
                                     <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Nueva contraseña') }}" value="" required>
-                                    
+
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('password') }}</strong>
@@ -146,7 +150,11 @@
                 </div>
             </div>
         </div>
-        
-        
+
+
     </div>
 @endsection
+@push('js')
+    <script src="{{ asset('assets/js/functions.js') }}"> </script>
+
+@endpush

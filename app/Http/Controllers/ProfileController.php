@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -51,4 +56,58 @@ class ProfileController extends Controller
 
         return back()->withPasswordStatus(__('Password successfully updated.'));
     }
+
+
+    public function editPic(Request $request)
+    {
+
+        #dd($user);
+        #$dada= $request->all();
+        #dd($dada);
+        $imageProfile = $request->file('imageProfile');
+        #dd($imageProfile);
+        if (!is_null($imageProfile)) {
+            $validator = Validator::make($request->all(), [
+                'eventeimage' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => implode(",", $validator->messages()->all())
+                ]);
+            }
+        }
+
+        try {
+            $uid = Auth::user()->id;
+            $UserInfo = User::find($uid);
+            #dd($UserInfo);
+            #SUBIENDO LA IMAGEN AL DRIVE
+            $imageName = Str::random(10) . '.' . $imageProfile->getClientOriginalExtension();
+            $filePath = 'images/' . $imageName;
+            $diskImage = \Storage::disk('gcs')->put($filePath, file_get_contents($imageProfile), 'public');
+            $gcsImage = \Storage::disk('gcs');
+            $imageurl = $gcsImage->url('images' . "/" . $imageName);
+
+            $UserInfo = User::find($uid);
+           # dd($UserInfo->getPic());
+            $UserInfo->setPic($imageurl);
+            $UserInfo->save();
+
+            return response()->json([
+                'success' => true,
+                'image' => $imageurl,
+                'message' => "Se ha actulizado correctamente."
+            ]);
+
+        }catch(\Exception $exception){
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage()
+            ]);
+        }
+
+
+    }
+
 }

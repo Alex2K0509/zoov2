@@ -40,4 +40,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getPic()
+    {
+        return $this->getAttribute('pic_profile');
+    }
+
+    public function setPic($url)
+    {
+        $this->setAttribute('pic_profile', $url);
+        return $this;
+    }
 }
