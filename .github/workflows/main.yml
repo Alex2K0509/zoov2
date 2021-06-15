@@ -14,7 +14,7 @@ jobs:
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
-          ftp-server: 162.241.60.125
+          ftp-server: ftp.telpochcalli.com.mx
           ftp-username: production@telpochcalli.com.mx
           ftp-password: ${{ secrets.FTP_PASSWORD }}
 
