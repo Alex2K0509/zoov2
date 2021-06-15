@@ -84,7 +84,7 @@ try{
     return response()->json(
         [
             'success' => true,
-            'message' => 'Error, intentar más tarde.'
+            'message' => 'Error, intentar más tarde..'
         ]
     );
 }
