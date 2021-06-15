@@ -51,26 +51,15 @@ try{
     $data=$request->all();
     $hash     = new Hashids('', 20);
     $animalHash= $hash->decode($data['select']);
-    #dd($animalHash[0]);
-    #dd($hash->decode(implode(",", $data['select'])));
 
-/*
- *  #subiendo video a la nube y obteniendo el url del video.
-    $video = $request->file('videoanimal');
-    $videoName = Str::random(10).'.'.$video->getClientOriginalExtension();
-    $filePath = 'videos/' . $videoName;
-    $diskVideo = \Storage::disk('gcs')->put($filePath, file_get_contents($video),'public');
-    $gcsVideo = \Storage::disk('gcs');
-    $videourl = $gcsVideo->url('videos'. "/" .$videoName);
- */
 
 
     #subiendo images a la nube y obteniendo el url del video.
     $image = $request->file('imageanimal');
     $ImageName = Str::random(10).'.'.$image->getClientOriginalExtension();
     $filePath = 'images/' . $ImageName;
-    $diskImage = \Storage::disk('gcs')->put($filePath, file_get_contents($image),'public');
-    $gcsImage = \Storage::disk('gcs');
+    $diskImage = \Storage::disk('public')->put($filePath, file_get_contents($image),'public');
+    $gcsImage = \Storage::disk('public');
     $imageurl = $gcsImage->url('images'. "/" .$ImageName);
 
 

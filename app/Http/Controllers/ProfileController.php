@@ -85,8 +85,8 @@ class ProfileController extends Controller
             #SUBIENDO LA IMAGEN AL DRIVE
             $imageName = Str::random(10) . '.' . $imageProfile->getClientOriginalExtension();
             $filePath = 'images/' . $imageName;
-            $diskImage = \Storage::disk('gcs')->put($filePath, file_get_contents($imageProfile), 'public');
-            $gcsImage = \Storage::disk('gcs');
+            $diskImage = \Storage::disk('public')->put($filePath, file_get_contents($imageProfile), 'public');
+            $gcsImage = \Storage::disk('public');
             $imageurl = $gcsImage->url('images' . "/" . $imageName);
 
             $UserInfo = User::find($uid);

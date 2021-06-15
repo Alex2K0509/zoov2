@@ -119,8 +119,8 @@ class RecordsController extends Controller
             #SUBIENDO LA IMAGEN AL DRIVE
             $imageName = Str::random(10) . '.' . $imageEve->getClientOriginalExtension();
             $filePath = 'images/' . $imageName;
-            $diskImage = \Storage::disk('gcs')->put($filePath, file_get_contents($imageEve), 'public');
-            $gcsImage = \Storage::disk('gcs');
+            $diskImage = \Storage::disk('public')->put($filePath, file_get_contents($imageEve), 'public');
+            $gcsImage = \Storage::disk('public');
             $imageurl = $gcsImage->url('images' . "/" . $imageName);
 
         }
@@ -411,8 +411,8 @@ class RecordsController extends Controller
             #SUBIENDO LA IMAGEN AL DRIVE
             $imageName = Str::random(10) . '.' . $imageEve->getClientOriginalExtension();
             $filePath = 'images/' . $imageName;
-            $diskImage = \Storage::disk('gcs')->put($filePath, file_get_contents($imageEve), 'public');
-            $gcsImage = \Storage::disk('gcs');
+            $diskImage = \Storage::disk('public')->put($filePath, file_get_contents($imageEve), 'public');
+            $gcsImage = \Storage::disk('public');
             $imageurl = $gcsImage->url('images' . "/" . $imageName);
 
         }
