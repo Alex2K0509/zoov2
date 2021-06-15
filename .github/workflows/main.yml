@@ -1,20 +1,16 @@
-name: FTP Test
-
-on:
-  push:
-    branches: [master]
-
+on: push
+name: 🚀 Deploy website on push
 jobs:
-  deploy:
-    name: 🚀 Deploy website every commit
+  web-deploy:
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
 
       - name: 📂 Sync files
-        uses: ./
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
-          server:  ftp.telpochcalli.com.mx
+          server: ftp.telpochcalli.com.mx
           username: zoov2@telpochcalli.com.mx
-          password: ${{ secrets.FTP_PASSWORD }}
+          password: ${{ secrets.ftp_password }}
