@@ -34,7 +34,7 @@ function addEvento() {
             });
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8000/evento/add",
+                url: route('eventoInsert'),
                 data: formEvento,
                 contentType: false,
                 processData: false,
@@ -70,12 +70,12 @@ function addAnimal(){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
+    let addAnimal =route("InsertAnimal");
     let formEvento = new FormData();
     formEvento.append('nameAni', $('#nameAni').val());
     formEvento.append('especieAni', $('#especieAni').val());
 
-    //console.log(formJavier.foto);
+    //casdasdasdasdasdonsole.log(formJavier.foto);
     Swal.fire({
         title: '¿Estas seguro que deseas almacenar este animal?',
         showDenyButton: true,
@@ -94,7 +94,7 @@ function addAnimal(){
             });
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8000/animal/add",
+                url: addAnimal,
                 data: formEvento,
                 contentType: false,
                 processData: false,
