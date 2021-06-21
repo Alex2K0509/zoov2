@@ -23,7 +23,12 @@ class ApiController extends Controller
 protected function getEventos(){
     try {
         $Eventos = CATEventos::all();
-
+        if(count($Eventos) <=0){
+            $response = [
+                "mensaje" => "no existen eventos",
+            ];
+            return response()->json($response, 200);
+        }
         $response = [
             "mensaje" => "succes",
             "eventos" => $Eventos
@@ -93,7 +98,7 @@ $publicacionesAll = PUBlicaciones::getPosts($data['id'],$params)->get();
             return response()->json($response, 404);
         }
     }catch (\Exception $exception){
-        dd($exception);
+       # dd($exception);
         $response = [
             "mensaje" => "error",
             "error" => $exception->getMessage()

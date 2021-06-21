@@ -87,6 +87,8 @@ class CatalogosController extends Controller
      */
 
     protected function InsertAnimal(Request $request){
+        $data=$request->all();
+        #dd($data);
         $validator = Validator::make($request->all(), [
             'nameAni' => 'required',
             'especieAni'=>'required',
@@ -98,8 +100,7 @@ class CatalogosController extends Controller
             ]);
         }
         try {
-            $data=$request->all();
-           #dd($data);
+
             DB::beginTransaction();
 
             $Animal = new ANIMales();

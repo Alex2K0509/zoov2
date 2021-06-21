@@ -34,7 +34,7 @@ function addEvento() {
             });
             $.ajax({
                 type: "POST",
-                url: route('eventoInsert'),
+                url: '/evento/add',
                 data: formEvento,
                 contentType: false,
                 processData: false,
@@ -70,8 +70,9 @@ function addAnimal(){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    let addAnimal =route("InsertAnimal");
+
     let formEvento = new FormData();
+
     formEvento.append('nameAni', $('#nameAni').val());
     formEvento.append('especieAni', $('#especieAni').val());
 
@@ -94,7 +95,7 @@ function addAnimal(){
             });
             $.ajax({
                 type: "POST",
-                url: addAnimal,
+                url: '/animal/add',
                 data: formEvento,
                 contentType: false,
                 processData: false,
@@ -160,7 +161,7 @@ function addPost(){
 
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8000/insert/post",
+                url: '/insert/post',
                 data: formPost,
                 contentType: false,
                 processData: false,
@@ -201,7 +202,7 @@ function infoEvento(id){
         }
     });
     $.ajax({
-        url: "http://127.0.0.1:8000/info/eventos",
+        url: '/info/eventos',
         type: "GET",
         dataType: "JSON",
         data: {
@@ -243,7 +244,7 @@ function InfoPubli(id){
         }
     });
     $.ajax({
-        url: "http://127.0.0.1:8000/info/publicaciones",
+        url: '/info/publicaciones',
         type: "GET",
         dataType: "JSON",
         data: {
@@ -305,7 +306,7 @@ function editEvento(){
             });
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8000/edit/eventos",
+                url: '/edit/eventos',
                 data: formEvento,
                 contentType: false,
                 processData: false,
@@ -362,7 +363,7 @@ function deleteEvento(id){
             });
             $.ajax({
                 type: "DELETE",
-                url: "http://127.0.0.1:8000/delete/evento",
+                url: 'delete/evento',
                 dataType: "JSON",
                 data: {
                    code: id
@@ -429,7 +430,7 @@ function updatePubli(){
             });
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8000/edit/pubs",
+                url: '/edit/pubs',
                 data: formPubli,
                 contentType: false,
                 processData: false,
@@ -483,7 +484,7 @@ function deletePub(id){
             });
             $.ajax({
                 type: "DELETE",
-                url: "http://127.0.0.1:8000/delete/pub",
+                url: 'delete/pub',
                 dataType: "JSON",
                 data: {
                     code: id
@@ -524,7 +525,7 @@ function infoAnimals(id){
         }
     });
     $.ajax({
-        url: "http://127.0.0.1:8000/info/animals",
+        url: '/info/animals',
         type: "GET",
         dataType: "JSON",
         data: {
@@ -578,7 +579,7 @@ function updateAnimal(){
             });
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8000/edit/animals",
+                url: '/edit/animals',
                 data: formAnimal,
                 contentType: false,
                 processData: false,
@@ -635,7 +636,7 @@ function deleteAnimals(id){
             });
             $.ajax({
                 type: "DELETE",
-                url: "http://127.0.0.1:8000/delete/animals",
+                url: 'delete/animals',
                 dataType: "JSON",
                 data: {
                     code: id
@@ -694,17 +695,13 @@ function notiEvento(id){
             });
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8000/notification/eventos",
+                url: '/notification/eventos',
                 dataType: "JSON",
                 data: {
                     code: id
                 },
                 success:function(response){
                     if(response.success){
-                        //$("#upload-animal-form").trigger('reset');
-                        //alert(response.message) //Message come from controller
-                        //$('#example3').DataTable().ajax.reload();
-                        //$('#example2').DataTable().ajax.reload();
                         Swal.fire(response.message, '', 'success')
                     }else{
                         Swal.close();
@@ -727,7 +724,7 @@ function notiEvento(id){
 }
 
 function notiPost(id){
-   // console.log(id);
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -753,7 +750,7 @@ function notiPost(id){
             });
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8000/notification/post",
+                url: '/notification/post',
                 dataType: "JSON",
                 data: {
                     code: id
@@ -790,7 +787,7 @@ function editPic(){
     });
     let formPic = new FormData();
     formPic.append('imageProfile', $('#imagep')[0].files[0]);
-//console.log(formPic.imageProfile);
+
     Swal.fire({
         title: '¿Estas seguro que deseas actualizar la imagen de perfil?',
         showDenyButton: true,
@@ -809,7 +806,7 @@ function editPic(){
             });
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:8000/profile/edit/pic",
+                url: '/profile/edit/pic',
                 data: formPic,
                 contentType: false,
                 processData: false,
@@ -900,7 +897,7 @@ $(document).ready(function() {
     const select2 = $( "#select" ).select2({
 
         ajax: {
-            url: "http://127.0.0.1:8000/all/animals",
+            url: '/all/animals',
             type: "post",
             dataType: 'json',
             delay: 250,
@@ -1084,4 +1081,5 @@ $(document).ready(function() {
     });
 
 });
+
 
