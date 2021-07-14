@@ -8,26 +8,28 @@ use App\Models\ANIMALES\ANIMales;
 use App\Models\CATALOGOS\CATEventos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+
 class CatalogosController extends Controller
 {
     /**
- * @version 1.0.0
- * @date 2021-03-10
- * @function Inserta un evento en la db y sube la imagen de este mismo a la nube.
- * @return mixed
- */
+     * @return mixed
+     * @version 1.0.0
+     * @date 2021-03-10
+     * @function Inserta un evento en la db y sube la imagen de este mismo a la nube.
+     */
     protected function InserEvent(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'descrip'=>'required',
-            'dateini'=>'required',
-            'datefin'=>'required',
-            'timeini'=>'required',
-            'timefin'=>'required',
-            'eventeimage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'descrip' => 'required',
+            'dateini' => 'required',
+            'datefin' => 'required',
+            'timeini' => 'required',
+            'timefin' => 'required',
+            //'eventeimage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -38,14 +40,13 @@ class CatalogosController extends Controller
 
         $User = auth()->user();
         $file = $request->file('eventeimage');
-        $Imagename  = Str::random(10).'.'.$file->getClientOriginalExtension();
-        $filePath = 'images/' . $Imagename;
+        $imageName = Str::random(10) . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('images'), $imageName);
+        $url = asset('images/' . $imageName);
 
-        $disk = \Storage::disk('gcs')->put($filePath, file_get_contents($file),'public');
-        $gcs = \Storage::disk('gcs');
-        $url = $gcs->url('images'. "/" .$Imagename);
-        $data=$request->all();
-        #dd("se subio",$url,$data);
+
+        $data = $request->all();
+
         try {
             DB::beginTransaction();
 
@@ -70,7 +71,7 @@ class CatalogosController extends Controller
             DB::rollBack();
             return response()->json(
                 [
-                    'success' => true,
+                    'success' => false,
                     'message' => 'Error, intentar más tarde.'
                 ]
             );
@@ -79,19 +80,20 @@ class CatalogosController extends Controller
 
         //dd("entra");
     }
+
     /**
+     * @return mixed
      * @version 1.0.0
      * @date 2021-03-11
      * @function Inserta un tipo de animal.
-     * @return mixed
      */
 
-    protected function InsertAnimal(Request $request){
-        $data=$request->all();
-        #dd($data);
+    protected function InsertAnimal(Request $request)
+    {
+        $data = $request->all();
         $validator = Validator::make($request->all(), [
             'nameAni' => 'required',
-            'especieAni'=>'required',
+            'especieAni' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -100,12 +102,17 @@ class CatalogosController extends Controller
             ]);
         }
         try {
-
             DB::beginTransaction();
+            $file = $request->file('imageAni');
+            $imageName = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $imageName);
+            $url = asset('images/' . $imageName);
+
 
             $Animal = new ANIMales();
             $Animal->setNombre($data['nameAni']);
             $Animal->setEspecie($data['especieAni']);
+            $Animal->setImage($url);
             $Animal->save();
             DB::commit();
             return response()->json(
@@ -115,18 +122,17 @@ class CatalogosController extends Controller
                 ]
             );
 
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             DB::rollBack();
             return response()->json(
                 [
-                    'success' => true,
+                    'success' => false,
                     'message' => 'Error, intentar más tarde.'
                 ]
             );
         }
 
     }
-
 
 
 }

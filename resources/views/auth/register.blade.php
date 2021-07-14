@@ -8,7 +8,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8">
                 <div class="card bg-secondary shadow border-0">
-                    
+
                     <div class="card-body px-lg-5 py-lg-5">
                         <div class="text-center text-muted mb-4">
                             <small>{{ __('Ingrese su información') }}</small>
@@ -78,18 +78,19 @@
                                 </div>
                             </div>
                             <div class="text-muted font-italic">
-                               
+
                             </div>
                             <div class="row my-4">
                                 <div class="col-12">
                                     <div class="custom-control custom-control-alternative custom-checkbox">
-                                      
-                                       
+
+
                                     </div>
                                 </div>
                             </div>
+
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary mt-4">{{ __('Crear una cuenta') }}</button>
+                                <button  hidden type="submit" class="btn btn-primary mt-4">{{ __('Crear una cuenta') }}</button>
                             </div>
                         </form>
                     </div>

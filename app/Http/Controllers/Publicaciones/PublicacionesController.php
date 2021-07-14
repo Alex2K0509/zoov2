@@ -16,18 +16,15 @@ use Hashids\Hashids;
 class PublicacionesController extends Controller
 {
 protected function inserPost(Request $request){
-    ini_set('max_execution_time', 180);
-
     $validator = Validator::make($request->all(), [
         'select' => 'required',
         //'videoanimal' => 'required',
         'title'=>'required',
         'contenido'=>'required',
-        'imageanimal' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+       // 'imageanimal' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         //'videoanimal' => 'required|mimes:mp4|max:100000',
 
     ]);
-
     if ($validator->fails()) {
         return response()->json([
             'success' => false,
@@ -35,16 +32,6 @@ protected function inserPost(Request $request){
         ]);
     }
 
-
-    /*$getID3 = new \getID3;
-    $file = $getID3->analyze($video);
-    $playtime_seconds = $file['playtime_seconds'];
-    $duration = date('H:i:s.v', $playtime_seconds);
-
-
-dd($duration);
-     *
-     */
 
 
 try{
@@ -56,19 +43,17 @@ try{
 
     #subiendo images a la nube y obteniendo el url del video.
     $image = $request->file('imageanimal');
-    $ImageName = Str::random(10).'.'.$image->getClientOriginalExtension();
-    $filePath = 'images/' . $ImageName;
-    $diskImage = \Storage::disk('public')->put($filePath, file_get_contents($image),'public');
-    $gcsImage = \Storage::disk('public');
-    $imageurl = $gcsImage->url('images'. "/" .$ImageName);
+    $file = $request->file('imageanimal');
+    $imageName = Str::random(10) . '.' . $file->getClientOriginalExtension();
+    $file->move(public_path('images'), $imageName);
+    $url = asset('images/' . $imageName);
 
 
     DB::beginTransaction();
     $NewPost = new PUBlicaciones();
     $NewPost->setTitle($data['title']);
     $NewPost->setDescrip($data['contenido']);
-    $NewPost->setImage($imageurl);
-   // $NewPost->setVideo($videourl);
+    $NewPost->setImage($url);
     $NewPost->setAnimal($animalHash[0]);
     $NewPost->save();
     DB::commit();
@@ -79,11 +64,10 @@ try{
         ]
     );
 }catch (\Exception $exception){
-    dd($exception);
     DB::rollBack();
     return response()->json(
         [
-            'success' => true,
+            'success' => false,
             'message' => 'Error, intentar más tarde..'
         ]
     );

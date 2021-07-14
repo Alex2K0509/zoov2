@@ -2,7 +2,7 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="6720559e-a81f-489e-93b2-cfac6f7aa3b3" name="PROYECTO-ZOO" url="http://ftp.telpochcalli.com.mx">
+      <webServer id="6720559e-a81f-489e-93b2-cfac6f7aa3b3" name="PROYECTO-ZOO" url="http://zooproyect.telpochcalli.com.mx">
         <fileTransfer host="ftp.telpochcalli.com.mx" port="21">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />

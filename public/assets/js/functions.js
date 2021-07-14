@@ -38,11 +38,11 @@ function addEvento() {
                 data: formEvento,
                 contentType: false,
                 processData: false,
-                success:function(response){
-                    if(response.success){
+                success: function (response) {
+                    if (response.success) {
                         $("#upload-image-form").trigger('reset');
                         Swal.fire(response.message, '', 'success')
-                    }else{
+                    } else {
                         Swal.close();
                         Swal.fire(
                             "Error",
@@ -64,7 +64,7 @@ function addEvento() {
 }
 
 
-function addAnimal(){
+function addAnimal() {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -75,6 +75,7 @@ function addAnimal(){
 
     formEvento.append('nameAni', $('#nameAni').val());
     formEvento.append('especieAni', $('#especieAni').val());
+    formEvento.append('imageAni', $('#imageAni')[0].files[0]);
 
     //casdasdasdasdasdonsole.log(formJavier.foto);
     Swal.fire({
@@ -99,12 +100,12 @@ function addAnimal(){
                 data: formEvento,
                 contentType: false,
                 processData: false,
-                success:function(response){
-                    if(response.success){
+                success: function (response) {
+                    if (response.success) {
                         $("#upload-animal-form").trigger('reset');
                         //alert(response.message) //Message come from controller
                         Swal.fire(response.message, '', 'success')
-                    }else{
+                    } else {
                         Swal.close();
                         Swal.fire(
                             "Error",
@@ -124,7 +125,7 @@ function addAnimal(){
 
 }
 
-function addPost(){
+function addPost() {
 
     $.ajaxSetup({
         headers: {
@@ -165,12 +166,12 @@ function addPost(){
                 data: formPost,
                 contentType: false,
                 processData: false,
-                success:function(response){
-                    if(response.success){
+                success: function (response) {
+                    if (response.success) {
                         //alert(response.message) //Message come from controller
                         $("#upload-information-form").trigger('reset');
                         Swal.fire(response.message, '', 'success')
-                    }else{
+                    } else {
                         Swal.close();
                         Swal.fire({
                             icon: 'error',
@@ -191,7 +192,7 @@ function addPost(){
 
 }
 
-function infoEvento(id){
+function infoEvento(id) {
 
     Swal.fire({
         title: "Procesando...",
@@ -206,10 +207,10 @@ function infoEvento(id){
         type: "GET",
         dataType: "JSON",
         data: {
-            code:id
+            code: id
         }
     })
-        .done(function(response) {
+        .done(function (response) {
             $("#nameEve").val(response.nombre);
             $("#descripEve").val(response.descripcion);
             $("#Horaini").val(response.horaini);
@@ -222,19 +223,19 @@ function infoEvento(id){
             $('#updateeve').data('id', id);
             $("#modal-evento").modal();
         })
-        .fail(function(error) {
+        .fail(function (error) {
             Swal.fire(
                 "Error",
                 "algo salio mal",
                 "error"
             );
         })
-        .always(function() {
+        .always(function () {
             Swal.close();
         });
 }
 
-function InfoPubli(id){
+function InfoPubli(id) {
     Swal.fire({
         title: "Procesando...",
         allowOutsideClick: false,
@@ -248,10 +249,10 @@ function InfoPubli(id){
         type: "GET",
         dataType: "JSON",
         data: {
-            code:id
+            code: id
         }
     })
-        .done(function(response) {
+        .done(function (response) {
             $("#titlepubli").val(response.title);
             $("#decrippubli").val(response.descripcion);
             $('#imagepubli').attr('src', response.image);
@@ -259,19 +260,19 @@ function InfoPubli(id){
 
             $("#modal-publis").modal();
         })
-        .fail(function(error) {
+        .fail(function (error) {
             Swal.fire(
                 "Error",
                 "algo salio mal alv",
                 "error"
             );
         })
-        .always(function() {
+        .always(function () {
             Swal.close();
         });
 }
 
-function editEvento(){
+function editEvento() {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -310,13 +311,13 @@ function editEvento(){
                 data: formEvento,
                 contentType: false,
                 processData: false,
-                success:function(response){
-                    if(response.success){
+                success: function (response) {
+                    if (response.success) {
                         $("#updafile").trigger('reset');
                         $('#modal-evento').modal('hide');
                         $('#example').DataTable().ajax.reload();
                         Swal.fire(response.message, '', 'success')
-                    }else{
+                    } else {
                         Swal.close();
                         Swal.fire(
                             "Error",
@@ -337,7 +338,7 @@ function editEvento(){
 
 }
 
-function deleteEvento(id){
+function deleteEvento(id) {
     //console.log(id);
     $.ajaxSetup({
         headers: {
@@ -366,15 +367,15 @@ function deleteEvento(id){
                 url: 'delete/evento',
                 dataType: "JSON",
                 data: {
-                   code: id
+                    code: id
                 },
-                success:function(response){
-                    if(response.success){
+                success: function (response) {
+                    if (response.success) {
                         //$("#upload-animal-form").trigger('reset');
                         //alert(response.message) //Message come from controller
                         $('#example').DataTable().ajax.reload();
                         Swal.fire(response.message, '', 'success')
-                    }else{
+                    } else {
                         Swal.close();
                         Swal.fire(
                             "Error",
@@ -393,13 +394,10 @@ function deleteEvento(id){
     })
 
 
-
-
-
 }
 
 
-function updatePubli(){
+function updatePubli() {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -434,13 +432,13 @@ function updatePubli(){
                 data: formPubli,
                 contentType: false,
                 processData: false,
-                success:function(response){
-                    if(response.success){
+                success: function (response) {
+                    if (response.success) {
                         //$("#updafile").trigger('reset');
                         $('#modal-publis').modal('hide');
                         $('#example2').DataTable().ajax.reload();
                         Swal.fire(response.message, '', 'success')
-                    }else{
+                    } else {
                         Swal.close();
                         Swal.fire(
                             "Error",
@@ -459,7 +457,7 @@ function updatePubli(){
     })
 }
 
-function deletePub(id){
+function deletePub(id) {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -489,13 +487,13 @@ function deletePub(id){
                 data: {
                     code: id
                 },
-                success:function(response){
-                    if(response.success){
+                success: function (response) {
+                    if (response.success) {
                         //$("#upload-animal-form").trigger('reset');
                         //alert(response.message) //Message come from controller
                         $('#example2').DataTable().ajax.reload();
                         Swal.fire(response.message, '', 'success')
-                    }else{
+                    } else {
                         Swal.close();
                         Swal.fire(
                             "Error",
@@ -515,7 +513,7 @@ function deletePub(id){
 
 }
 
-function infoAnimals(id){
+function infoAnimals(id) {
     Swal.fire({
         title: "Procesando...",
         allowOutsideClick: false,
@@ -529,27 +527,27 @@ function infoAnimals(id){
         type: "GET",
         dataType: "JSON",
         data: {
-            code:id
+            code: id
         }
-    }).done(function(response) {
+    }).done(function (response) {
         $("#animalname").val(response.nombre);
         $("#especieanimal").val(response.especie);
         $('#updaanimal').data('id', id);
         $("#modal-animales").modal();
-    }).fail(function(error) {
-            Swal.fire(
-                "Error",
-                "algo salio mal",
-                "error"
-            );
-        })
-        .always(function() {
+    }).fail(function (error) {
+        Swal.fire(
+            "Error",
+            "algo salio mal",
+            "error"
+        );
+    })
+        .always(function () {
             Swal.close();
         });
 
 }
 
-function updateAnimal(){
+function updateAnimal() {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -583,13 +581,13 @@ function updateAnimal(){
                 data: formAnimal,
                 contentType: false,
                 processData: false,
-                success:function(response){
-                    if(response.success){
+                success: function (response) {
+                    if (response.success) {
                         //$("#updafile").trigger('reset');
                         $('#modal-animales').modal('hide');
                         $('#example3').DataTable().ajax.reload();
                         Swal.fire(response.message, '', 'success')
-                    }else{
+                    } else {
                         Swal.close();
                         Swal.fire(
                             "Error",
@@ -608,10 +606,9 @@ function updateAnimal(){
     })
 
 
-
 }
 
-function deleteAnimals(id){
+function deleteAnimals(id) {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -641,14 +638,14 @@ function deleteAnimals(id){
                 data: {
                     code: id
                 },
-                success:function(response){
-                    if(response.success){
+                success: function (response) {
+                    if (response.success) {
                         //$("#upload-animal-form").trigger('reset');
                         //alert(response.message) //Message come from controller
                         $('#example3').DataTable().ajax.reload();
                         $('#example2').DataTable().ajax.reload();
                         Swal.fire(response.message, '', 'success')
-                    }else{
+                    } else {
                         Swal.close();
                         Swal.fire(
                             "Error",
@@ -668,7 +665,7 @@ function deleteAnimals(id){
 
 }
 
-function notiEvento(id){
+function notiEvento(id) {
     //console.log(id);
     $.ajaxSetup({
         headers: {
@@ -700,10 +697,10 @@ function notiEvento(id){
                 data: {
                     code: id
                 },
-                success:function(response){
-                    if(response.success){
+                success: function (response) {
+                    if (response.success) {
                         Swal.fire(response.message, '', 'success')
-                    }else{
+                    } else {
                         Swal.close();
                         Swal.fire(
                             "Error",
@@ -723,7 +720,7 @@ function notiEvento(id){
 
 }
 
-function notiPost(id){
+function notiPost(id) {
 
     $.ajaxSetup({
         headers: {
@@ -755,12 +752,12 @@ function notiPost(id){
                 data: {
                     code: id
                 },
-                success:function(response){
-                    if(response.success){
+                success: function (response) {
+                    if (response.success) {
 
 
                         Swal.fire(response.message, '', 'success')
-                    }else{
+                    } else {
                         Swal.close();
                         Swal.fire(
                             "Error",
@@ -779,7 +776,8 @@ function notiPost(id){
     })
 
 }
-function editPic(){
+
+function editPic() {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -810,15 +808,15 @@ function editPic(){
                 data: formPic,
                 contentType: false,
                 processData: false,
-                success:function(response){
-                    if(response.success){
+                success: function (response) {
+                    if (response.success) {
                         //$("#updafile").trigger('reset');
                         //$('#modal-evento').modal('hide');
                         //$('#example').DataTable().ajax.reload();divImage
                         $('#picimage').attr('src', response.image);
                         //$("#divImage").load(" #divImage");
                         Swal.fire(response.message, '', 'success')
-                    }else{
+                    } else {
                         Swal.close();
                         Swal.fire(
                             "Error",
@@ -837,7 +835,8 @@ function editPic(){
     })
 
 }
-$(document).ready(function() {
+
+$(document).ready(function () {
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     //tabla para editar eventos
     const table = $('#example').DataTable({
@@ -846,7 +845,7 @@ $(document).ready(function() {
         },
         processing: true,
         serverSide: true,
-        ajax:  '/table/eventos',
+        ajax: '/table/eventos',
         autoWidth: false,
         responsive: {
             details: {
@@ -866,7 +865,7 @@ $(document).ready(function() {
             {
                 data: 'eventohoraini',
                 name: 'eventohoraini'
-            },{
+            }, {
                 data: 'eventohorafin',
                 name: 'eventohorafin'
             },
@@ -894,7 +893,7 @@ $(document).ready(function() {
         }
     });
     //select2 para los animales
-    const select2 = $( "#select" ).select2({
+    const select2 = $("#select").select2({
 
         ajax: {
             url: '/all/animals',
@@ -922,7 +921,7 @@ $(document).ready(function() {
         },
         processing: true,
         serverSide: true,
-        ajax:  '/table/pubs',
+        ajax: '/table/pubs',
         autoWidth: false,
         responsive: {
             details: {
@@ -942,7 +941,7 @@ $(document).ready(function() {
             {
                 data: 'contenidopub',
                 name: 'contenidopub'
-            },{
+            }, {
                 data: 'createdpub',
                 name: 'createdpub'
             },
@@ -969,7 +968,7 @@ $(document).ready(function() {
         },
         processing: true,
         serverSide: true,
-        ajax:  '/table/animals',
+        ajax: '/table/animals',
         autoWidth: false,
         responsive: {
             details: {
@@ -989,7 +988,7 @@ $(document).ready(function() {
             {
                 data: 'dateAnimal',
                 name: 'dateAnimal'
-            },{
+            }, {
                 data: 'action',
                 name: 'action'
             }
@@ -1004,8 +1003,7 @@ $(document).ready(function() {
         }
     });
 
-    //configuración para el envio de notificaciones
-    // Your web app's Firebase configuration
+
     var firebaseConfig = {
         apiKey: "AIzaSyDNXPU2AOpPbxSs69xsycsxeN8mVTDA1RY",
         authDomain: "zooprueba-c9677.firebaseapp.com",
@@ -1021,25 +1019,24 @@ $(document).ready(function() {
     const messaging = firebase.messaging();
     messaging
         .requestPermission()
-        .then(function() {
+        .then(function () {
             //MsgElem.innerHTML = "Notification permission granted."
             console.log("Notification permission granted.");
 
             // get the token in the form of promise
             return messaging.getToken()
         })
-        .then(function(token) {
+        .then(function (token) {
             // print the token on the HTML page
             console.log(token);
 
 
-
         })
-        .catch(function(err) {
+        .catch(function (err) {
             console.log("Unable to get permission to notify.", err);
         });
 
-    messaging.onMessage(function(payload) {
+    messaging.onMessage(function (payload) {
         console.log(payload);
         var notify;
         notify = new Notification(payload.notification.title, {
@@ -1053,12 +1050,12 @@ $(document).ready(function() {
     //firebase.initializeApp(config);
     var database = firebase.database().ref().child("/users/");
 
-    database.on('value', function(snapshot) {
+    database.on('value', function (snapshot) {
         renderUI(snapshot.val());
     });
 
     // On child added to db
-    database.on('child_added', function(data) {
+    database.on('child_added', function (data) {
         console.log("Comming");
         if (Notification.permission !== 'default') {
             var notify;
@@ -1068,7 +1065,7 @@ $(document).ready(function() {
                 'icon': 'bell.png',
                 'tag': data.getKey()
             });
-            notify.onclick = function() {
+            notify.onclick = function () {
                 alert(this.tag);
             }
         } else {
@@ -1076,9 +1073,37 @@ $(document).ready(function() {
         }
     });
 
-    self.addEventListener('notificationclick', function(event) {
+    self.addEventListener('notificationclick', function (event) {
         event.notification.close();
     });
+
+
+    $("#upload-animal-form").validate({
+        rules: {
+            nameAni : {
+                required: true,
+                minlength: 3
+            },
+            especieAni: {
+                required: true,
+                number: true,
+                min: 18
+            },
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 });
 

@@ -45,7 +45,16 @@ class ANIMales extends Model
     {
         return $this->getAttribute('an_especie');
     }
+    public function setImage($url)
+    {
+        $this->setAttribute('an_image', $url);
+        return $this;
 
+    }
+    public function getImage()
+    {
+        return $this->getAttribute('an_image');
+    }
 
     #RELATIONS
     public function publicaciones()
