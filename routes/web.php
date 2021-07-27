@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\TOKENS\TOKen;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +20,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('welcome');
+
+    //$hola= 232;
+    //return view('welcome',['hola' => $hola]);
+    //return View::make('welcome')->with('hola', $hola);
+    return $api = TOKen::apiclima();
 });
 
 

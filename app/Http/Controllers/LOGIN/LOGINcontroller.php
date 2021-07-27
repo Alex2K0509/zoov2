@@ -5,11 +5,16 @@ namespace App\Http\Controllers\LOGIN;
 use App\Models\User;
 #libraries
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 class LOGINcontroller extends Controller
 {
     public function loginAPI(Request $request)
     {
+        #dd(1);
         $rules = [
             'email' => ['required', 'regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix'],
             'password' => 'required',
@@ -77,9 +82,10 @@ class LOGINcontroller extends Controller
                 return response()->json($error, 403);
             }
         } catch (\Exception $exception) {
+            dd($exception);
             return response()->json([
                 'success' => false,
-                'message' => $exception->getMessage()
+                'message' => $exception
             ]);
         }
     }
