@@ -286,6 +286,37 @@
             </div><!-- /.modal-dialog -->
 
         </div>
+
+        <!------Modal para el pdf de los eventos------->
+        <div class="modal fade" id="modal-evento-pdf" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myLargeModalLabel">Evento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+
+                            <iframe src="" style="background-color: #050107" id="pdf-evento" width="100%" height="600px" class="embed-responsive-item" frameborder="0"></iframe>
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" href="javascript:void(0)" onclick="editEvento()" class="btn btn-outline-primary" data-id="" id="updateeve">Actualizar evento</button>
+
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+
+        </div>
+
     </div>
 
 @endsection

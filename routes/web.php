@@ -21,18 +21,12 @@ use App\Models\TOKENS\TOKen;
 
 Route::get('/', function () {
 
-    //$hola= 232;
-    //return view('welcome',['hola' => $hola]);
-    //return View::make('welcome')->with('hola', $hola);
-    return $api = TOKen::apiclima();
+    return view('welcome');
 });
 
 
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-//Auth::routes();
 
-#Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
@@ -88,4 +82,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/notification/post', 'App\Http\Controllers\Records\RecordsController@sentNofiticationPost')->name('noti.posts');
     #RUTAS PARA EDITAR LA IMAGEN DE PERFIL
     Route::post('/profile/edit/pic', 'App\Http\Controllers\ProfileController@editPic')->name('edit.pic');
+
+
+    Route::get('/report/event/pdf', 'App\Http\Controllers\REPORTES_PDF\REPOcontroller@createEventReport');
+
 });

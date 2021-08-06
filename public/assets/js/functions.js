@@ -529,11 +529,9 @@ function infoAnimals(id) {
         data: {
             code: id
         }
-    }).done(function (response) {
-        $("#animalname").val(response.nombre);
-        $("#especieanimal").val(response.especie);
-        $('#updaanimal').data('id', id);
-        $("#modal-animales").modal();
+        }).done(function (response) {
+        $('#pdf-evento').attr('src', response.pdf);
+        $("#modal-evento-pdf").modal();
     }).fail(function (error) {
         Swal.fire(
             "Error",
@@ -836,6 +834,41 @@ function editPic() {
 
 }
 
+function createPdfEvent(id) {
+    Swal.fire({
+        title: "Procesando...",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        willOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    $.ajax({
+        url: '/report/event/pdf',
+        type: "GET",
+        dataType: "JSON",
+        data: {
+            code: id
+        }
+    }).done(function (response) {
+        $("#animalname").val(response.nombre);
+        $("#especieanimal").val(response.especie);
+        $('#updaanimal').data('id', id);
+        $("#modal-animales").modal();
+    }).fail(function (error) {
+        Swal.fire(
+            "Error",
+            "algo salio mal",
+            "error"
+        );
+    })
+        .always(function () {
+            Swal.close();
+        });
+
+}
+
 $(document).ready(function () {
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     //tabla para editar eventos
@@ -1003,7 +1036,7 @@ $(document).ready(function () {
         }
     });
 
-
+    /* area para notificaciones*/
     var firebaseConfig = {
         apiKey: "AIzaSyDNXPU2AOpPbxSs69xsycsxeN8mVTDA1RY",
         authDomain: "zooprueba-c9677.firebaseapp.com",
@@ -1080,7 +1113,7 @@ $(document).ready(function () {
 
     $("#upload-animal-form").validate({
         rules: {
-            nameAni : {
+            nameAni: {
                 required: true,
                 minlength: 3
             },
@@ -1091,18 +1124,6 @@ $(document).ready(function () {
             },
         }
     });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 });
