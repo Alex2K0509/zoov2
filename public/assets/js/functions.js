@@ -852,10 +852,8 @@ function createPdfEvent(id) {
             code: id
         }
     }).done(function (response) {
-        $("#animalname").val(response.nombre);
-        $("#especieanimal").val(response.especie);
-        $('#updaanimal').data('id', id);
-        $("#modal-animales").modal();
+        $('#pdf-evento').attr('src', response.pdf);
+        $("#modal-evento-pdf").modal();
     }).fail(function (error) {
         Swal.fire(
             "Error",

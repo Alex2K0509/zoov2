@@ -1,28 +1,39 @@
 <?php
 
 namespace App\Http\Controllers\REPORTES_PDF;
+
 use App\Http\Controllers\Controller;
+use App\Models\CATALOGOS\CATEventos;
 use Illuminate\Http\Request;
 use PDF;
 use PDOException;
-
+use Hashids\Hashids;
+use Illuminate\Support\Facades\Response;
 class REPOcontroller extends Controller
 {
     protected function createEventReport(Request $request)
     {
         try {
+            $hash = new Hashids('', 10);
             $data = $request->all();
-            dd($data);
-            $reporteid= $data['code'];
+            $reporteid = $hash->decode($data['code']);
+            //dd($reporteid[0]);
+            #buscando el evento por el id
+            $Evento = CATEventos::find($reporteid[0]);
+            #dd($Evento);
 
-            $data = [
-                'title' => 'Welcome to ItSolutionStuff.com',
-                'date' => date('m/d/Y')
-            ];
+            $pdf = app('dompdf.wrapper')->setPaper('L', 'portrait')->loadView('pdf.events_report', [
+                'Evento' => $Evento
+            ]);
+            $content =base64_encode( $pdf->download()->getOriginalContent());
 
-            $pdf = PDF::loadView('pdf.events_report', $data);
+            //dd(base64_encode($content));
 
-            return $pdf->stream('evento.pdf');
+            return response()->json([
+                "pdf"      => 'data:application/pdf;base64,' . $content
+
+            ]);
+            return true;
         } catch (Exception $e) {
             return dd($e);
         }

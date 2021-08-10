@@ -308,10 +308,7 @@
 
 
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" href="javascript:void(0)" onclick="editEvento()" class="btn btn-outline-primary" data-id="" id="updateeve">Actualizar evento</button>
 
-                    </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
 

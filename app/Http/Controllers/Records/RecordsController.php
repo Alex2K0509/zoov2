@@ -31,31 +31,31 @@ class RecordsController extends Controller
                 ->addIndexColumn()
                 ->addColumn('eventonombre', function ($data) {
                     $desc = $data->getEveNombre();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })->addColumn('eventodescrip', function ($data) {
                     $desc = $data->getEveDescripcion();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('eventohoraini', function ($data) {
-                    $desc = $data->getEveHorarioIni();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $desc = date('h:i A', strtotime($data->getEveHorarioIni()));
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('eventohorafin', function ($data) {
-                    $desc = $data->getEveHorarioFin();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $desc = date('h:i A', strtotime($data->getEveHorarioFin()));
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('eventofechaini', function ($data) {
                     $desc = $data->getEveFechaIni();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('eventofechafin', function ($data) {
                     $desc = $data->getEveFechaFin();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('action', function ($data) use ($hash) {
@@ -101,7 +101,12 @@ class RecordsController extends Controller
         return view('dashboard', compact('alleventos'));
 
     }
-
+    /**
+     * @autor Alex vergara
+     * @function Permiter editar un evento
+     * @param request
+     * @return mixed
+     */
     protected function editeventos(Request $request)
     {
 
@@ -162,7 +167,12 @@ class RecordsController extends Controller
             ]);
         }
     }
-
+    /**
+     * @autor Alex vergara
+     * @function Hace la solicitud para ver información de un evento dentrop del modal
+     * @param request
+     * @return mixed
+     */
     protected function infoediteve(Request $request)
     {
         $data = $request->all();
@@ -226,22 +236,23 @@ class RecordsController extends Controller
                 ->addIndexColumn()
                 ->addColumn('animalpub', function ($data) {
                     $desc = $data->animales->getNombre();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('titulopub', function ($data) {
                     $desc = $data->getTitle();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('contenidopub', function ($data) {
                     $desc = $data->getDescrip();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('createdpub', function ($data) {
-                    $desc = $data->getCreatedAt();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $desc =  date('h:i A', strtotime($data->getCreatedAt()));;
+
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('action', function ($data) use ($hash) {
@@ -283,7 +294,12 @@ class RecordsController extends Controller
         }
 
     }
-
+    /**
+     * @autor Alex vergara
+     * @function Retorna la datatable de los animales
+     * @param request
+     * @return mixed
+     */
     protected function tableAnimales(Request $request)
     {
 
@@ -296,17 +312,17 @@ class RecordsController extends Controller
                 ->addIndexColumn()
                 ->addColumn('animalname', function ($data) {
                     $desc = $data->getNombre();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('especieAnimal', function ($data) {
                     $desc = $data->getEspecie();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('dateAnimal', function ($data) {
-                    $desc = $data->created_at;
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $desc = date('h:i A', strtotime($data->created_at));;
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('action', function ($data) use ($hash) {
