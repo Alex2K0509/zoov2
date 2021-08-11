@@ -32,7 +32,7 @@
                     <div class="text-block-2">Fechas</div>
                     <ul role="list" class="list w-list-unstyled">
                         <li>
-                            <p >Iniciaqwqwndo el día: {{$Evento->eve_fecha_inicio}}</p>
+                            <p >Iniciaqwqwel día: {{$Evento->eve_fecha_inicio}}</p>
                         </li>
                         <li>
                             <p >Finalizando el día: {{$Evento->eve_fecha_final}}</p>
