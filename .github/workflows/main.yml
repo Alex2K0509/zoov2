@@ -1,16 +1,21 @@
-on: push
-name: 🚀 Deploy website on push
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ main ]
+
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
+  FTP-Deploy-Action:
+    name: ZOOPROYECT DEPLOY ACTION
     runs-on: ubuntu-latest
     steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v2
-
-      - name: 📂 Sync files
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: 2
+      - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
-          server: ftp.telpochcalli.com.mx
-          username: telpochc@zooproyect.telpochcalli.com.mx
-          password: ${{ secrets.ftp_password }}
+          ftp-server: ${{ secrets.HOST }}
+          ftp-username: ${{ secrets.USERNAME }}
+          ftp-password: ${{ secrets.PASSWORD }}
+          git-ftp-args: --insecure
