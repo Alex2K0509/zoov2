@@ -12,5 +12,5 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@4.0.0
         with:
           server: ftp.telpochcalli.com.mx
-          username: zoov2@telpochcalli.com.mx
+          username: telpochc@zooproyect.telpochcalli.com.mx
           password: ${{ secrets.ftp_password }}
