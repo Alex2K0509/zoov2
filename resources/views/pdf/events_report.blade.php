@@ -16,7 +16,7 @@
             <p class="bio">{{$Evento->eve_descripcion}}</p>
             <div class="links w-row">
                 <div class="column w-col w-col-4">
-                    <div class="text-block-2">Los horarios son:</div>
+                    <div class="text-block-2">Horario</div>
                     <ul role="list" class="list w-list-unstyled">
                         <li>
                             <p>De: {{date('h:i A', strtotime($Evento->eve_horario_ini))}}</p>
@@ -32,7 +32,7 @@
                     <div class="text-block-2">Fechas</div>
                     <ul role="list" class="list w-list-unstyled">
                         <li>
-                            <p >Iniciando el día: {{$Evento->eve_fecha_inicio}}</p>
+                            <p >Iniciaqwqwndo el día: {{$Evento->eve_fecha_inicio}}</p>
                         </li>
                         <li>
                             <p >Finalizando el día: {{$Evento->eve_fecha_final}}</p>
