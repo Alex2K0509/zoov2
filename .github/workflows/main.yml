@@ -2,7 +2,7 @@
 # events but only for the master branch
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   FTP-Deploy-Action:
