@@ -29,7 +29,7 @@
                     </ul>
                 </div>
                 <div class="column-2 w-col w-col-4">
-                    <div class="text-block-2">Las fechas son:</div>
+                    <div class="text-block-2">Las fechas sons:</div>
                     <ul role="list" class="list w-list-unstyled">
                         <li>
                             <p >Inicia el día: {{$Evento->eve_fecha_inicio}}</p>
