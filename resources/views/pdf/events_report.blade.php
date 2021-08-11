@@ -35,7 +35,7 @@
                             <p >Iniciando el días: {{$Evento->eve_fecha_inicio}}</p>
                         </li>
                         <li>
-                            <p >Finalizando el día: {{$Evento->eve_fecha_final}}</p>
+                            <p >Finalizando el días: {{$Evento->eve_fecha_final}}</p>
                         </li>
 
                     </ul>
