@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-
+use Image;
 #borrar despues
 use Carbon\Carbon;
 class ProfileController extends Controller
@@ -65,7 +65,7 @@ class ProfileController extends Controller
 
 
         $imageProfile = $request->file('imageProfile');
-
+        #dD($imageProfile);
         if (!is_null($imageProfile)) {
             $validator = Validator::make($request->all(), [
                 'eventeimage' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -81,9 +81,15 @@ class ProfileController extends Controller
         try {
             $uid = Auth::user()->id;
             $UserInfo = User::find($uid);
-
             $imageName = Str::random(10) . '.' . $imageProfile->getClientOriginalExtension();
-            $imageProfile->move(public_path('images'), $imageName);
+            $filePath = public_path('/images');
+            #AJUSTANDO EL TAMAÑO Y GUARDANDO LA IMAGEN
+            $img = Image::make($imageProfile->path());
+            $img->resize(300, 200, function ($const) {
+                $const->aspectRatio();
+            })->save($filePath.'/'.$imageName);
+
+
             $imageurl = asset('images/' . $imageName);
 
             $UserInfo->setPic($imageurl);

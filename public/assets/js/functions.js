@@ -784,53 +784,58 @@ function editPic() {
     let formPic = new FormData();
     formPic.append('imageProfile', $('#imagep')[0].files[0]);
 
+
+
+
+
     Swal.fire({
-        title: '¿Estas seguro que deseas actualizar la imagen de perfil?',
-        showDenyButton: true,
-        showCancelButton: false,
-        confirmButtonText: `Actualizar`,
-        denyButtonText: `Cancelar`,
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire({
-                title: "Procesando...",
-                allowOutsideClick: false,
-                showConfirmButton: false,
-                willOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-            $.ajax({
-                type: "POST",
-                url: '/profile/edit/pic',
-                data: formPic,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response.success) {
-                        //$("#updafile").trigger('reset');
-                        //$('#modal-evento').modal('hide');
-                        //$('#example').DataTable().ajax.reload();divImage
-                        $('#picimage').attr('src', response.image);
-                        //$("#divImage").load(" #divImage");
-                        Swal.fire(response.message, '', 'success')
-                    } else {
-                        Swal.close();
-                        Swal.fire(
-                            "Error",
-                            response.message,
-                            "error"
-                        );
-                        // alert(response.message)
+            title: '¿Estas seguro que deseas actualizar la imagen de perfil?',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: `Actualizar`,
+            denyButtonText: `Cancelar`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Procesando...",
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    willOpen: () => {
+                        Swal.showLoading();
                     }
-                },
-            })
+                });
+                $.ajax({
+                    type: "POST",
+                    url: '/profile/edit/pic',
+                    data: formPic,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.success) {
+                            //$("#updafile").trigger('reset');
+                            //$('#modal-evento').modal('hide');
+                            //$('#example').DataTable().ajax.reload();divImage
+                            $('#picimage').attr('src', response.image);
+                            $('#auth-image').attr('src', response.image);
+                            //$("#divImage").load(" #divImage");
+                            Swal.fire(response.message, '', 'success')
+                        } else {
+                            Swal.close();
+                            Swal.fire(
+                                "Error",
+                                response.message,
+                                "error"
+                            );
+                            // alert(response.message)
+                        }
+                    },
+                })
 
-        } else if (result.isDenied) {
+            } else if (result.isDenied) {
 
-            Swal.close();
-        }
-    })
+                Swal.close();
+            }
+        })
 
 }
 
@@ -931,6 +936,24 @@ function createPdfAni(id) {
             Swal.close();
         });
 
+}
+
+const resizeImage = (img, maxWidth, maxHeight) => {
+    var newWidth = img.width, newHeight = img.height
+    if (img.width > img.height && img.width > maxWidth) {
+        var newHeight = Math.floor(img.height * (maxWidth / img.width))
+        var newWidth = maxWidth
+    }
+    else if (img.height > maxHeight) {
+        var newHeight = maxHeight
+        var newWidth = Math.floor(img.width * (maxHeight / img.height))
+    }
+    const canvas = document.createElement('canvas')
+    canvas.width = newWidth
+    canvas.height = newHeight
+    var ctx = canvas.getContext("2d")
+    ctx.drawImage(img, 0, 0, newWidth, newHeight)
+    return canvas.toDataURL("image/jpeg")
 }
 
 $(document).ready(function () {

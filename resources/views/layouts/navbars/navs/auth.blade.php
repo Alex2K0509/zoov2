@@ -16,13 +16,9 @@
 
                 <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="media align-items-center">
-                        <span class="avatar avatar-sm rounded-circle">
 
-
-                            <img class="rounded-circle" src="{{empty(auth()->user()->getPic()) ?"/assets/img/default.jpg":auth()->user()->getPic()}}" alt="Image placeholder">
-                        </span>
                         <div class="media-body ml-2 d-none d-lg-block">
-                            <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->name }}</span>
+                            <span style="color:black" class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->name }}</span>
                         </div>
                     </div>
                 </a>

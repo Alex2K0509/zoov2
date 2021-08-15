@@ -49,6 +49,7 @@
     <style>
         .bg-secondary {
             background-color: #ffffff !important;
+
         }
         .page-item .page-link, .page-item span {
             font-size: .875rem;
@@ -83,7 +84,7 @@
 
 </head>
 
-    <body class="bg-default" style="background-color: rgb(32, 190, 117)">
+    <body class="bg-default" style="background-color: white; ">
         @auth()
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf

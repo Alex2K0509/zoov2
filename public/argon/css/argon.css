@@ -18989,6 +18989,7 @@ textarea[resize='horizontal']
 }
 .navbar-horizontal .navbar-nav .nav-link .nav-link-inner--text
 {
+    color:black;
     margin-left: .25rem;
 }
 

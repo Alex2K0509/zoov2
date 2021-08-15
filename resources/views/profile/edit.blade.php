@@ -15,7 +15,7 @@
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image" id="divImage">
                                 <a>
-                                    <img src="{{empty(auth()->user()->getPic()) ?"/assets/img/default.jpg":auth()->user()->getPic()   }}" alt="Image placeholder" id="picimage">
+                                    <img src="{{empty(auth()->user()->getPic()) ?"/assets/img/default.jpg":auth()->user()->getPic()   }}"  alt="Image placeholder" id="picimage">
                                 </a>
                             </div>
                         </div>
@@ -37,14 +37,16 @@
                             </h3>
                             <form role="form"  id="formPic" enctype="multipart/form-data" method="post" >
 
-                                <input type="file" class="form-control" id="imagep" name="imagep">
+                                <input type="file" class="form-control" id="imagep" name="imagep" >
 
                               </form>
+                            <br>
                             <button href="javascript:void(0)" onclick="editPic()"
                                     class="btn btn-outline-primary"
                                     title="Actualizar imagen">
                                 Actualizar imagen</button>
                         </div>
+                        <img>
                     </div>
                 </div>
             </div>
