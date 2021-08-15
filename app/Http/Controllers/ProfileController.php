@@ -63,11 +63,9 @@ class ProfileController extends Controller
     public function editPic(Request $request)
     {
 
-        #dd($user);
-        #$dada= $request->all();
-        #dd($dada);
+
         $imageProfile = $request->file('imageProfile');
-        #dd($imageProfile);
+
         if (!is_null($imageProfile)) {
             $validator = Validator::make($request->all(), [
                 'eventeimage' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -83,16 +81,11 @@ class ProfileController extends Controller
         try {
             $uid = Auth::user()->id;
             $UserInfo = User::find($uid);
-            #dd($UserInfo);
-            #SUBIENDO LA IMAGEN AL DRIVE
-            $imageName = Str::random(10) . '.' . $imageProfile->getClientOriginalExtension();
-            $filePath = 'images/' . $imageName;
-            $diskImage = \Storage::disk('public')->put($filePath, file_get_contents($imageProfile), 'public');
-            $gcsImage = \Storage::disk('public');
-            $imageurl = $gcsImage->url('images' . "/" . $imageName);
 
-            $UserInfo = User::find($uid);
-           # dd($UserInfo->getPic());
+            $imageName = Str::random(10) . '.' . $imageProfile->getClientOriginalExtension();
+            $imageProfile->move(public_path('images'), $imageName);
+            $imageurl = asset('images/' . $imageName);
+
             $UserInfo->setPic($imageurl);
             $UserInfo->save();
 

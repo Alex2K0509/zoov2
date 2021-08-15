@@ -15,7 +15,7 @@
                         <div class="col-lg-3 order-lg-2">
                             <div class="card-profile-image" id="divImage">
                                 <a>
-                                    <img src="{{empty(auth()->user()->getPic()) ?"/assets/img/default.jpg":auth()->user()->getPic()   }}" class="rounded-circle" id="picimage">
+                                    <img src="{{empty(auth()->user()->getPic()) ?"/assets/img/default.jpg":auth()->user()->getPic()   }}" alt="Image placeholder" id="picimage">
                                 </a>
                             </div>
                         </div>

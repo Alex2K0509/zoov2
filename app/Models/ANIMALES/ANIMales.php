@@ -56,6 +56,10 @@ class ANIMales extends Model
         return $this->getAttribute('an_image');
     }
 
+    public function getCreatedAt()
+    {
+        return $this->getAttribute('created_at');
+    }
     #RELATIONS
     public function publicaciones()
     {

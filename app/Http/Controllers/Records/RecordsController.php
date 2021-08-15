@@ -250,7 +250,8 @@ class RecordsController extends Controller
                     return $btn;
                 })
                 ->addColumn('createdpub', function ($data) {
-                    $desc =  date('h:i A', strtotime($data->getCreatedAt()));;
+                    $desc =  $data->getCreatedAt();
+                    #$desc =  date('h:i A', $data->getCreatedAt());
 
                     $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
@@ -321,7 +322,7 @@ class RecordsController extends Controller
                     return $btn;
                 })
                 ->addColumn('dateAnimal', function ($data) {
-                    $desc = date('h:i A', strtotime($data->created_at));;
+                    $desc = $data->created_at;
                     $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
@@ -341,6 +342,13 @@ class RecordsController extends Controller
                             data-placement="bottom"
                             title="Editar publicación">
                             <i class="far fa-edit"></i>
+                            </button>
+                 <button href="javascript:void(0)" onclick="createPdfAni(\'' . $Aniid . '\')"
+                             class="btn btn-outline-primary btn-sm"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="Crear pdf">
+                           <i  class="fa fa-file-pdf" aria-hidden="true"></i>
                             </button>
 
                 </div>';

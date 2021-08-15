@@ -85,5 +85,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::get('/report/event/pdf', 'App\Http\Controllers\REPORTES_PDF\REPOcontroller@createEventReport');
+    Route::get('/report/post/pdf', 'App\Http\Controllers\REPORTES_PDF\REPOcontroller@createPostReport');
+    Route::get('/report/animal/pdf', 'App\Http\Controllers\REPORTES_PDF\REPOcontroller@createAnimalReport');
 
 });

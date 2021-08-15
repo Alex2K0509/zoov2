@@ -867,6 +867,72 @@ function createPdfEvent(id) {
 
 }
 
+function createPdfPub(id) {
+    Swal.fire({
+        title: "Procesando...",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        willOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    $.ajax({
+        url: '/report/post/pdf',
+        type: "GET",
+        dataType: "JSON",
+        data: {
+            code: id
+        }
+    }).done(function (response) {
+        $('#post-evento').attr('src', response.pdf);
+        $("#modal-post-pdf").modal();
+    }).fail(function (error) {
+        Swal.fire(
+            "Error",
+            "algo salio mal",
+            "error"
+        );
+    })
+        .always(function () {
+            Swal.close();
+        });
+
+}
+
+function createPdfAni(id) {
+    Swal.fire({
+        title: "Procesando...",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        willOpen: () => {
+            Swal.showLoading();
+        }
+    });
+
+    $.ajax({
+        url: '/report/animal/pdf',
+        type: "GET",
+        dataType: "JSON",
+        data: {
+            code: id
+        }
+    }).done(function (response) {
+        $('#pdf-animal').attr('src', response.pdf);
+        $("#modal-animal-pdf").modal();
+    }).fail(function (response) {
+        Swal.fire(
+            "Error",
+            response.message,
+            "error"
+        );
+    })
+        .always(function () {
+            Swal.close();
+        });
+
+}
+
 $(document).ready(function () {
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     //tabla para editar eventos
