@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('user', 'App\Http\Controllers\UserController@index')->name('user.index'); #pagina inicial
 
     Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']); #perfil del usuario
-    Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']); #actualizar info
+
     Route::get('upgrade', function () {
         return view('pages.upgrade');
     })->name('upgrade');
@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('table-list', function () {
         return view('pages.tables');
     })->name('table');
-    Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+
     #ruta para insertar eventos
     Route::post('/evento/add', 'App\Http\Controllers\Catalogos\CatalogosController@InserEvent')->name('eventoInsert');
     Route::post('/animal/add', 'App\Http\Controllers\Catalogos\CatalogosController@InsertAnimal')->name('InsertAnimal');
@@ -87,5 +87,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/report/event/pdf', 'App\Http\Controllers\REPORTES_PDF\REPOcontroller@createEventReport');
     Route::get('/report/post/pdf', 'App\Http\Controllers\REPORTES_PDF\REPOcontroller@createPostReport');
     Route::get('/report/animal/pdf', 'App\Http\Controllers\REPORTES_PDF\REPOcontroller@createAnimalReport');
-
+    Route::post('profile/info', 'App\Http\Controllers\ProfileController@update'); #actualizar info
+    Route::post('profile/password',  'App\Http\Controllers\ProfileController@password');
 });

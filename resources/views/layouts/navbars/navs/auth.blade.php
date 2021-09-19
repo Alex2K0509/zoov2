@@ -18,7 +18,7 @@
                     <div class="media align-items-center">
 
                         <div class="media-body ml-2 d-none d-lg-block">
-                            <span style="color:black" class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->name }}</span>
+                            <span id="nav-auth" style="color:black" class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->name }}</span>
                         </div>
                     </div>
                 </a>

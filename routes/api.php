@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 })
 ;*/
 Route::post('/loginapi', 'App\Http\Controllers\LOGIN\LOGINcontroller@loginAPI');
+Route::post('webhook/tokens', 'App\Http\Controllers\WEBHOOK\NotiWebhookController@webHooks');
 Route::group(['middleware' => 'auth:api'], function () {
 #API PARA OBTENER TODOS LOS EVENTOS
     Route::get('/get/eventos', 'App\Http\Controllers\APIS\ApiController@getEventos');
@@ -27,5 +28,5 @@ Route::group(['middleware' => 'auth:api'], function () {
 #API PARA OBTENER LAS PUBLICACIONES
     Route::post('/get/publicaciones', 'App\Http\Controllers\APIS\ApiController@getPublicaciones');
 #RUTA PARA EL WEBHOO
-    Route::post('webhook/tokens', 'App\Http\Controllers\WEBHOOK\NotiWebhookController@webHooks');
+
 });

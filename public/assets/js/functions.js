@@ -839,6 +839,129 @@ function editPic() {
 
 }
 
+function editInfo() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    let formUser = new FormData();
+    formUser.append('name', $('#input-name').val());
+
+
+
+
+    Swal.fire({
+            title: '¿Estas seguro que deseas actualizar su información?',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: `Actualizar`,
+            denyButtonText: `Cancelar`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Procesando...",
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    willOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: 'profile/info',
+                    data: formUser,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.success) {
+
+                            $('#input-name').val( response.name);
+                            $('#h3-name').load(location.href + " #h3-name");
+                            $('#title').load(location.href + " #title");
+                            $('#nav-auth').load(location.href + " #nav-auth");
+
+                            Swal.fire(response.message, '', 'success')
+                        } else {
+                            Swal.close();
+                            Swal.fire(
+                                "Error",
+                                response.message,
+                                "error"
+                            );
+                            // alert(response.message)
+                        }
+                    },
+                })
+
+            } else if (result.isDenied) {
+
+                Swal.close();
+            }
+        })
+
+}
+
+function editPass() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    let formPass = new FormData();
+    formPass.append('old_password', $('#input-current-password').val());
+    formPass.append('password', $('#input-password').val());
+    formPass.append('password_confirmation', $('#input-password-confirmation').val());
+
+
+
+
+    Swal.fire({
+            title: '¿Estas seguro que deseas actualizar su contraseña?',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: `Actualizar`,
+            denyButtonText: `Cancelar`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Procesando...",
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    willOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: 'profile/password',
+                    data: formPass,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.success) {
+
+                            Swal.fire(response.message, '', 'success')
+                        } else {
+                            Swal.close();
+                            Swal.fire(
+                                "Error",
+                                response.message,
+                                "error"
+                            );
+                            // alert(response.message)
+                        }
+                    },
+                })
+
+            } else if (result.isDenied) {
+
+                Swal.close();
+            }
+        })
+
+}
+
 function createPdfEvent(id) {
     Swal.fire({
         title: "Procesando...",
