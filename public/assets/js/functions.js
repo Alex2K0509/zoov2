@@ -530,8 +530,9 @@ function infoAnimals(id) {
             code: id
         }
         }).done(function (response) {
-        $('#pdf-evento').attr('src', response.pdf);
-        $("#modal-evento-pdf").modal();
+        $("#animalname").val(response.nombre);
+        $("#especieanimal").val(response.especie);
+        $("#modal-animales").modal();
     }).fail(function (error) {
         Swal.fire(
             "Error",
@@ -581,7 +582,7 @@ function updateAnimal() {
                 processData: false,
                 success: function (response) {
                     if (response.success) {
-                        //$("#updafile").trigger('reset');
+                        $("#updafile").trigger('reset');
                         $('#modal-animales').modal('hide');
                         $('#example3').DataTable().ajax.reload();
                         Swal.fire(response.message, '', 'success')

@@ -501,6 +501,7 @@ class RecordsController extends Controller
             $hash = new Hashids('', 10);
             $id = $hash->decode($data['code']);
             $InfoAnimales = ANIMales::find($id[0]);
+
             return response()->json([
                 "nombre" => $InfoAnimales->getNombre(),
                 "especie" => $InfoAnimales->getEspecie(),

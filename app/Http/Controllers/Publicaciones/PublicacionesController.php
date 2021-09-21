@@ -60,7 +60,7 @@ try{
     return response()->json(
         [
             'success' => true,
-            'message' => 'Publicación creadqwww coomo de que nos'
+            'message' => 'Publicación creada exitosamente.'
         ]
     );
 }catch (\Exception $exception){
