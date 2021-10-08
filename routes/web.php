@@ -27,7 +27,8 @@ Route::get('/', function () {
 
 
 
-Auth::routes();
+//Auth::routes();
+Auth::routes(["register" => false]);
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -36,6 +37,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'App\Http\Controllers\Records\RecordsController@tableeventos')->name('home');
 
     Route::get('user', 'App\Http\Controllers\UserController@index')->name('user.index'); #pagina inicial
+    Route::get('admin', 'App\Http\Controllers\UserController@admin')->name('user.admin'); #pagina inicial
+    Route::get('admin', 'App\Http\Controllers\UserController@admin')->name('user.admin'); #pagina inicial
 
     Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']); #perfil del usuario
 

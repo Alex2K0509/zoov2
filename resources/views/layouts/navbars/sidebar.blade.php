@@ -26,7 +26,7 @@
                         <i class="ni ni-single-02"></i>
                         <span>{{ __('Mi perfil') }}</span>
                     </a>
-                   
+
                     <div class="dropdown-divider"></div>
                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
@@ -72,10 +72,10 @@
                         <i class="fas fa-address-card" style="color: #89a1e2;"></i>   {{ __('Perfil del usuario') }}
                     </a>
                 </li>
-                
+
                 <li class="nav-item">
                     <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
-                        
+
                         <i class="fas fa-server" style="color: #f4645f;"></i>
                         <span class="nav-link-text" style="color: #f4645f;">{{ __('Centro de control') }}</span>
                     </a>
@@ -92,18 +92,23 @@
                                     <i class="fas fa-plus-circle"></i>   {{ __('Catalogos') }}
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user.admin') }}">
+                                    <i class="fas fa-fingerprint"></i>   {{ __('Adminitradores') }}
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
 
-               
+
             </ul>
             <!-- Divider -->
             <hr class="my-3">
             <!-- Heading -->
-           
+
             <!-- Navigation -->
-           
+
         </div>
     </div>
 </nav>
