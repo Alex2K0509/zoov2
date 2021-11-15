@@ -42,7 +42,7 @@
     <script type="text/javascript" src="{{ asset('assets/jquery/responsive.bootstrap4.min.js') }}" defer></script>
 
 <!---js para select2-->
-    <link href="{{ asset('assets/jquery/select2.min.cs') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/jquery/select2.min.css') }}" rel="stylesheet" />
     <script src="{{ asset('assets/jquery/select2.min.js') }}" defer></script>
 
 
