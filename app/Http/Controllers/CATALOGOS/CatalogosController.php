@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Catalogos;
+namespace App\Http\Controllers\CATALOGOS;
 
 use App\Http\Controllers\Controller;
 

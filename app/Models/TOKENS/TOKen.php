@@ -38,7 +38,6 @@ class TOKen extends Model
     }
 
     public static function InsertToken($data){
-        #dd($data);
         try {
 
            DB::beginTransaction();
@@ -51,7 +50,6 @@ class TOKen extends Model
             ];
             return response()->json($response, 200);
         }catch (\Exception $exception){
-            dd($exception);
             DB::rollBack();
             $response = [
                 "mensaje" => "Error en la transaccion",

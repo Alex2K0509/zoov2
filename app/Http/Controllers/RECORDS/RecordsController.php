@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers\Records;
+namespace App\Http\Controllers\RECORDS;
 use App\Http\Controllers\Controller;
 
 use App\Models\ANIMALES\ANIMales;
@@ -367,14 +367,13 @@ class RecordsController extends Controller
      */
     protected function infoPublications(Request $request)
     {
-        #dd("hola");
+
         $data = $request->all();
         try {
             $hash = new Hashids('', 10);
             $id = $hash->decode($data['code']);
 
             $InfoPublicaciones = PUBlicaciones::find($id[0]);
-            #dd($InfoPublicaciones);
             return response()->json([
                 "title" => $InfoPublicaciones->getTitle(),
                 "descripcion" => $InfoPublicaciones->getDescrip(),
@@ -385,7 +384,9 @@ class RecordsController extends Controller
 
 
         } catch (\Exception $exception) {
-            dd($exception);
+            return response()->json([
+                "error" => $exception->getMessage(),
+            ]);
         }
 
 

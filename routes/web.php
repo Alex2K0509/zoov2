@@ -24,20 +24,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::post('/notification/post', 'App\Http\Controllers\Records\RecordsController@sentNofiticationPost')->name('noti.posts');
 
 
 //Auth::routes();
 Auth::routes(["register" => false]);
-
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','userable']], function () {
 
     Route::get('/home', 'App\Http\Controllers\Records\RecordsController@tableeventos')->name('home');
     #Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
     Route::get('/home', 'App\Http\Controllers\Records\RecordsController@tableeventos')->name('home');
 
     Route::get('user', 'App\Http\Controllers\UserController@index')->name('user.index'); #pagina inicial
-    Route::get('admin', 'App\Http\Controllers\UserController@admin')->name('user.admin'); #pagina inicial
     Route::get('admin', 'App\Http\Controllers\UserController@admin')->name('user.admin'); #pagina inicial
 
     Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']); #perfil del usuario
@@ -59,7 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/evento/add', 'App\Http\Controllers\Catalogos\CatalogosController@InserEvent')->name('eventoInsert');
     Route::post('/animal/add', 'App\Http\Controllers\Catalogos\CatalogosController@InsertAnimal')->name('InsertAnimal');
     #ruta para editar un evento
-    #Route::get('/edit/evento', 'App\Http\Controllers\Catalogos\RecordsController@editEventos')->name('edit.eventos');
+    #Route::get('/edit/evento', 'App\Http\Controllers\CATALOGOS\RecordsController@editEventos')->name('edit.eventos');
 
     #rutas para formar los data tables
     Route::get('/table/eventos', 'App\Http\Controllers\Records\RecordsController@tableeventos')->name('table.eventos');
@@ -92,4 +90,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/report/animal/pdf', 'App\Http\Controllers\REPORTES_PDF\REPOcontroller@createAnimalReport');
     Route::post('profile/info', 'App\Http\Controllers\ProfileController@update'); #actualizar info
     Route::post('profile/password',  'App\Http\Controllers\ProfileController@password');
+
+    Route::post('/create/admin',  'App\Http\Controllers\UserController@createAdmin');
+    Route::get('/table/admin',  'App\Http\Controllers\UserController@tableAdmin');
+
 });

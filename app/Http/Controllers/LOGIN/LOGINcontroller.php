@@ -14,7 +14,7 @@ class LOGINcontroller extends Controller
 {
     public function loginAPI(Request $request)
     {
-        #dd(1);
+
         $rules = [
             'email' => ['required', 'regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix'],
             'password' => 'required',
@@ -82,7 +82,6 @@ class LOGINcontroller extends Controller
                 return response()->json($error, 403);
             }
         } catch (\Exception $exception) {
-            dd($exception);
             return response()->json([
                 'success' => false,
                 'message' => $exception

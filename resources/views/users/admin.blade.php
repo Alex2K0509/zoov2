@@ -12,8 +12,10 @@
                         <h5 class="card-title mt-0 mb-0 header-title">Centro de adminitradores</h5>
                         <br>
                         <h6 class="card-title mt-0 mb-0 header-title">En este apartado podras crear,bloquear o eliminar administradores.</h6>
-
-
+                        <br>
+                        <button type="button" data-target="#modal-crear"  data-toggle="modal" class="btn btn-outline-success btn-sm">Crear administrador</button>
+                        <br>
+                        <br>
                         <table id="adminTable" class="table table-striped table-bordered dataTable responsive" style="width:100%" role="grid" aria-describedby="example_info">
                             <thead>
                             <tr style="width: 100%">
@@ -54,7 +56,7 @@
 
                             <div class="col-12">
 
-                                <form role="form" id="form-eve" enctype="multipart/form-data" method="post">
+                                <form role="form" id="form-admin" enctype="multipart/form-data" method="post">
                                     <div class="form-group">
                                         <p>Seleccione los atributos que desee actualizar</p>
                                         <label for="nameAdmin">Nombre:</label>
@@ -76,6 +78,10 @@
                                         <label for="emailAdmin">Correo electronico:</label>
                                         <input type="email" class="form-control" name="emailAdmin" id="emailAdmin">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="emailAdmin">Contraseña:</label>
+                                        <input type="password" class="form-control" name="paswordAdmin" id="paswordAdmin">
+                                    </div>
 
                                 </form>
 
@@ -86,7 +92,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" href="javascript:void(0)" onclick="crearAdmin()" class="btn btn-outline-primary" data-id="" id="updateeve">Actualizar evento</button>
+                        <button type="button" href="javascript:void(0)" onclick="createAdmin()" class="btn btn-outline-primary" data-id="" id="updateeve">Crear administrador.</button>
 
                     </div>
                 </div><!-- /.modal-content -->

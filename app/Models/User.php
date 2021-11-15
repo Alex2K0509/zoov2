@@ -78,4 +78,29 @@ class User extends Authenticatable
     {
         return $this->getAttribute('name');
     }
+
+    public function getStatus(){
+        if($this->getAttribute('status') != 2){
+            return 'HABILITADO';
+        }else{
+            return 'BLOQUEADO';
+        }
+    }
+
+    public function setType($type){
+        $this->setAttribute('type', $type);
+        return $this;
+    }
+    public function getType(){
+        return $this->getAttribute('type');
+    }
+    public function setStatusNum($status){
+        $this->setAttribute('status', $status);
+        return $this;
+    }
+
+    public function getStatusNum(){
+       return $this->getAttribute('status');
+    }
+
 }

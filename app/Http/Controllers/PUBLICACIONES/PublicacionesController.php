@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers\Publicaciones;
+namespace App\Http\Controllers\PUBLICACIONES;
 
 
 use App\Http\Controllers\Controller;

@@ -68,7 +68,13 @@ protected function getAnimales(){
     }
 
 }
-
+    /**
+     * @version 1.0.0
+     * @date 2021-03-10
+     * @type api
+     * @function retornamos toda la información de las publicaciones creadqs
+     * @return mixed
+     */
 
 protected function getPublicaciones(Request $request){
     try {

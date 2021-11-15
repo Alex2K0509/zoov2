@@ -77,7 +77,7 @@ function addAnimal() {
     formEvento.append('especieAni', $('#especieAni').val());
     formEvento.append('imageAni', $('#imageAni')[0].files[0]);
 
-    //casdasdasdasdasdonsole.log(formJavier.foto);
+
     Swal.fire({
         title: '¿Estas seguro que deseas almacenar este animal?',
         showDenyButton: true,
@@ -118,7 +118,6 @@ function addAnimal() {
             })
             // Swal.fire('Saved!', '', 'success')
         } else if (result.isDenied) {
-            //Swal.fire('Changes are not saved', '', 'info')
             Swal.close();
         }
     })
@@ -785,10 +784,6 @@ function editPic() {
     let formPic = new FormData();
     formPic.append('imageProfile', $('#imagep')[0].files[0]);
 
-
-
-
-
     Swal.fire({
             title: '¿Estas seguro que deseas actualizar la imagen de perfil?',
             showDenyButton: true,
@@ -1062,6 +1057,65 @@ function createPdfAni(id) {
 
 }
 
+function createAdmin(){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+
+    let formEvento = new FormData();
+    formEvento.append('nameAdmin', $('#nameAdmin').val());
+    formEvento.append('apepatAdmin', $('#apepatAdmin').val());
+    formEvento.append('apematAdmin', $('#apematAdmin').val());
+    formEvento.append('emailAdmin', $('#emailAdmin').val());
+    formEvento.append('paswordAdmin', $('#paswordAdmin').val());
+
+    Swal.fire({
+        title: '¿Estas seguro que deseas crear a este administrador?',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: `Crear`,
+        denyButtonText: `Cancelar`,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: "Procesando...",
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                willOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: '/create/admin',
+                data: formEvento,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.success) {
+                        $('#modal-crear').modal('hide');
+                        $('#adminTable').DataTable().ajax.reload();
+                        Swal.fire(response.message, '', 'success')
+                    } else {
+                        Swal.close();
+                        Swal.fire(
+                            "Error",
+                            response.message,
+                            "error"
+                        );
+                    }
+                },
+            })
+
+        } else if (result.isDenied) {
+
+            Swal.close();
+        }
+    })
+}
 const resizeImage = (img, maxWidth, maxHeight) => {
     var newWidth = img.width, newHeight = img.height
     if (img.width > img.height && img.width > maxWidth) {
@@ -1079,6 +1133,8 @@ const resizeImage = (img, maxWidth, maxHeight) => {
     ctx.drawImage(img, 0, 0, newWidth, newHeight)
     return canvas.toDataURL("image/jpeg")
 }
+
+
 
 $(document).ready(function () {
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -1247,6 +1303,46 @@ $(document).ready(function () {
         }
     });
 
+    const table4 = $('#adminTable').DataTable({
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+        },
+        processing: true,
+        serverSide: true,
+        ajax: 'table/admin',
+        autoWidth: false,
+        responsive: {
+            details: {
+                type: 'column',
+                target: 'tr'
+            }
+        },
+        columns: [
+            {
+                data: 'adminName',
+                name: 'adminName'
+            },
+            {
+                data: 'adminEmail',
+                name: 'adminEmail'
+            },
+            {
+                data: 'adminStatus',
+                name: 'adminStatus'
+            }, {
+                data: 'action',
+                name: 'action'
+            }
+        ],
+        columnDefs: [{
+            "targets": 1, // your case first column
+            "className": "contenido-tablas-descripcion"
+
+        }],
+        drawCallback: function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        }
+    });
     /* area para notificaciones*/
     var firebaseConfig = {
         apiKey: "AIzaSyDNXPU2AOpPbxSs69xsycsxeN8mVTDA1RY",

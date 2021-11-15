@@ -9,22 +9,21 @@
 
         <title> zoo-control</title>
 
-        <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+        <script src="{{ asset('assets/firebase/firebase.js') }}"></script>
         <!-- Firebase App is always required and must be first -->
-        <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-app.js"></script>
+        <script src="{{ asset('assets/firebase/firebase-app.js') }}"></script>
 
         <!-- Add addit ional services that you want to use -->
-        <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-database.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-firestore.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-messaging.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-functions.js"></script>
+        <script src="{{ asset('assets/firebase/firebase-auth.js') }}"></script>
+        <script src="{{ asset('assets/firebase/firebase-database.js') }}"></script>
+        <script src="{{ asset('assets/firebase/firebase-firestore.js') }}"></script>
+        <script src="{{ asset('assets/firebase/firebase-messaging.js') }}"></script>
+        <script src="{{ asset('assets/firebase/firebase-functions.js') }}"></script>
 
         <!-- firebase integration end -->
 
         <!-- Comment out (or don't include) services that you don't want to use -->
-        <!-- <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-storage.js"></script> -->
-        <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-analytics.js"></script>
+        <script src="{{ asset('assets/firebase/firebase-analytics.js') }}"></script>
 
 
         <!-- Favicon -->
@@ -37,35 +36,32 @@
 
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+        <script src="{{ asset('assets/jquery/sweetalert2@10.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('assets/jquery/all.min.css') }}" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
 
         <!---estilos para datatables---->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
-        <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <link href="{{ asset('assets/jquery/bootstrap.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/jquery/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
-       <!--estilos cdn data tables-->
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.bootstrap4.min.css"/>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css" />
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.3.1/css/select.bootstrap4.min.css" />
+        <!--estilos cdn data tables-->
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/jquery/responsive.bootstrap4.min.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('assets/jquery/jquery.webui-popover.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/jquery/buttons.bootstrap4.min.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/jquery/select.bootstrap4.min.css') }}"/>
 
 
         <!---js cdn data tables para datatables---->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js" defer></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js" defer></script>
+        <script type="text/javascript" src="{{ asset('assets/jquery/jquery-3.5.1.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/jquery/jquery.dataTables.min.js') }}" defer></script>
+        <script type="text/javascript" src="{{ asset('assets/jquery/dataTables.bootstrap4.min.js') }}" defer></script>
 
         <!--estilos para responsive-->
-        <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js" defer></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.7/js/responsive.bootstrap4.min.js" defer></script>
+        <script type="text/javascript" src="{{ asset('assets/jquery/dataTables.responsive.min.js') }}" defer></script>
+        <script type="text/javascript" src="{{ asset('assets/jquery/responsive.bootstrap4.min.js') }}" defer></script>
 
         <!---js para select2-->
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
-
-
-
+        <link href="{{ asset('assets/jquery/select2.min.css') }}" rel="stylesheet" />
+        <script src="{{ asset('assets/jquery/select2.min.js') }}" defer></script>
 
 
         <style>
@@ -106,7 +102,7 @@
 
     </head>
 
-
+    @include('flash-message')
     <body class="bg-default" style="background-color: white">
         @auth()
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -117,6 +113,7 @@
 
         <div class="main-content">
             @include('layouts.navbars.navbar')
+
             @yield('content')
         </div>
 

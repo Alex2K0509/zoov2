@@ -44,7 +44,7 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title mt-0 mb-0 header-title">Publicaciones creadas</h5>
+                        <h5 class="card-title mt-0 mb-0 header-title">PUBLICACIONES creadas</h5>
                         <br>
                         <h6 class="card-title mt-0 mb-0 header-title">En este apartado podra editar una publicación,eliminar o modificar en caso de ser necesario.</h6>
 
