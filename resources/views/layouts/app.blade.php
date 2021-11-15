@@ -34,7 +34,7 @@
 
     <!---js cdn data tables para datatables---->
     <script type="text/javascript" src="{{ asset('assets/jquery/jquery-3.5.1.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/jquery/jquery.dataTables.min') }}" defer></script>
+    <script type="text/javascript" src="{{ asset('assets/jquery/jquery.dataTables.min.js') }}" defer></script>
     <script type="text/javascript" src="{{ asset('assets/jquery/dataTables.bootstrap4.min.js') }}" defer></script>
 
     <!--estilos para responsive-->
