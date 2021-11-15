@@ -1,7 +1,7 @@
 <?php return array (
   'app' => 
   array (
-    'name' => 'Laravel',
+    'name' => 'ZOO-CONTROL',
     'env' => 'local',
     'debug' => true,
     'url' => 'http://telpochcalli.com.mx/',
@@ -228,7 +228,7 @@
         'endpoint' => NULL,
       ),
     ),
-    'prefix' => 'laravel_cache',
+    'prefix' => 'zoo_control_cache',
   ),
   'cors' => 
   array (
@@ -327,7 +327,7 @@
       'options' => 
       array (
         'cluster' => 'redis',
-        'prefix' => 'laravel_database_',
+        'prefix' => 'zoo_control_database_',
       ),
       'default' => 
       array (
@@ -515,11 +515,11 @@
       'smtp' => 
       array (
         'transport' => 'smtp',
-        'host' => 'mailhog',
-        'port' => '1025',
-        'encryption' => NULL,
-        'username' => NULL,
-        'password' => NULL,
+        'host' => 'smtp.gmail.com',
+        'port' => '587',
+        'encryption' => 'tls',
+        'username' => 'zoologicochetumal21@gmail.com',
+        'password' => 'rjdvrigvowyroaxf',
         'timeout' => NULL,
         'auth_mode' => NULL,
       ),
@@ -552,8 +552,8 @@
     ),
     'from' => 
     array (
-      'address' => NULL,
-      'name' => 'Laravel',
+      'address' => 'zoologicochetumal21@gmail.com',
+      'name' => 'ZOO-CONTROL',
     ),
     'markdown' => 
     array (
@@ -648,7 +648,7 @@
       0 => 2,
       1 => 100,
     ),
-    'cookie' => 'laravel_session',
+    'cookie' => 'zoo_control_session',
     'path' => '/',
     'domain' => NULL,
     'secure' => NULL,

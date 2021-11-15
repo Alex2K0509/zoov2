@@ -59,11 +59,9 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-6">
-                        @if (Route::has('password.request'))
                             <a href="{{ route('password.request') }}" class="text-light" style="color: white">
-                                <small style="color: white">{{ __('¿Olvidate tu contraseña?') }}</small>
+                                <small style="color: black">{{ __('¿Olvidate tu contraseña?') }}</small>
                             </a>
-                        @endif
                     </div>
                 </div>
             </div>

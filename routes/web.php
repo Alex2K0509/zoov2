@@ -25,6 +25,7 @@ Route::get('/', function () {
 });
 
 Route::post('/notification/post', 'App\Http\Controllers\Records\RecordsController@sentNofiticationPost')->name('noti.posts');
+Route::get('password/reset', 'App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 
 
 //Auth::routes();
