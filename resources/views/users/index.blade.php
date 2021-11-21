@@ -27,6 +27,7 @@
                             <div class="form-group">
                                 <p>Catalogo de eventos</p>
                                 <h5>Mediante este formulario podrá registrar un nuevo evento del zoologico</h5>
+                                <h6><small>*Si la fecha de evento ya paso, en automatico se eliminara*</small> </h6>
                               <label for="name">Nombre del evento:</label>
                               <input type="text" class="form-control" id="name" name="name">
                             </div>
