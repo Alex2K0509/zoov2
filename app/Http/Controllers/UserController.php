@@ -152,7 +152,7 @@ class UserController extends Controller
 
         if ($validator->fails()) {
             $messages = $validator->messages();
-            
+
             return response()->json(
                 [
                     'success' => false,
@@ -181,6 +181,31 @@ class UserController extends Controller
                 'success' => false,
                 'message' => $exception->getMessage()
             ]);
+        }
+    }
+
+    protected function deleteAdmin(Request $request){
+        $data = $request->all();
+        $hash = new Hashids('', 10);
+        $id = $hash->decode($data['code']);
+
+        try {
+            $user = User::where('id', '=', $id[0])->first();
+            $user->delete();
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Cuenta eliminada correctamente.'
+                ]
+            );
+        } catch (\Exception $exception) {
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Error, intentar más tarde.'
+                ]
+            );
         }
     }
 }

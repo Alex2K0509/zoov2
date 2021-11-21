@@ -109,7 +109,36 @@ class RecordsController extends Controller
      */
     protected function editeventos(Request $request)
     {
+        $rules = [
+            'name' => ['min:1', 'max:80'],
+            'descrip' => ['min:1', 'max:255'],
+            'timeini' => ['required'],
+            'timefin' => ['required'],
+            'dateini' => ['required'],
+            'datefin' => ['required']
+        ];
+        $messages = [
+            'name.min' => 'El campo de nombre debe tener al menos un caracter.',
+            'name.max' => 'El campo de nombre no debe exceder de los 80 caracteres.',
+            'descrip.min' => 'El campo de la descripción debe tener al menos un caracter.',
+            'descrip.max' => 'El campo de la descripción no debe exceder de los 255 caracteres.',
+            'timeini.required' => 'La hora de inicio es requerida.',
+            'timefin.required' => 'La hora de fin es requerida.',
+            'dateini.required' => 'La fecha de inicio es requerida.',
+            'datefin.required' => 'La fecha de fin es requerida.'
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
 
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' =>$messages->first(),
+                ]
+            );
+        }
         $imageEve = $request->file('eventeimage');
         if (!is_null($imageEve)) {
             $validator = Validator::make($request->all(), [
@@ -133,20 +162,18 @@ class RecordsController extends Controller
 
         try {
             $data = $request->all();
-            #dd($data);
             $hash = new Hashids('', 10);
 
 
-            #
+
             $ideve = $hash->decode($data['id']);
-            #dd($imageurl);
             $UpdateEve = CATEventos::where('eve_eve', $ideve)->first();
             $dburl = isset($imageurl) ? !is_null($imageurl) ? $imageurl : $UpdateEve->getEveImage() : $UpdateEve->getEveImage();
-            #$dburl = is_null($imageurl) ? $imageurl : $UpdateEve->getEveImage();
 
-            # dd($dburl);
-            #DB::beginTransaction();
+
+
             $UpdateEve->setEveNombre($data['name']);
+            $UpdateEve->setEveDescripcion($data['descrip']);
             $UpdateEve->setEveHorarioIni($data['timeini']);
             $UpdateEve->setEveHorarioFin($data['timefin']);
             $UpdateEve->setEveFechaIni($data['dateini']);
@@ -421,8 +448,28 @@ class RecordsController extends Controller
 
     protected function editpubs(Request $request)
     {
+        $rules = [
+            'titlepubli' => ['required','min:1', 'max:80'],
+            'decrippubli' => ['required','min:1', 'max:500'],
+        ];
+        $messages = [
+            'titlepubli.required' => 'El titulo de la publicación es requerido.',
+            'titlepubli.min' => 'El titulo debe tener al menos un caracter.',
+            'titlepubli.max' => 'El titulo no debe exceder de los 80 caracteres.',
+            'decrippubli.required' => 'El contenido de la publicación es requerido.',
+            'condecrippublitenido.min' => 'El contenido debe tener al menos un caracter.',
+            'decrippubli.max' => 'El titcontenidoulo no debe exceder de los 500 caracteres.'
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            return response()->json([
+                'success' => false,
+                'message' => $messages->first(),
+            ]);
+        }
+
         $imageEve = $request->file('updaimagefile');
-        #dd($imageEve);
         if (!is_null($imageEve)) {
             $validator = Validator::make($request->all(), [
                 'eventeimage' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -517,9 +564,27 @@ class RecordsController extends Controller
 
     protected function editanimals(Request $request)
     {
+        $rules = [
+        'animalname' => ['required','min:1', 'max:50','regex:/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/'],
+        'especieanimal' => ['required','min:1', 'max:50'],
+        ];
+        $messages = [
+            'animalname.min' => 'El nombre del animal debe tener al menos un caracter.',
+            'animalname.max' => 'El nombre del animal no debe exceder de los 50 caracteres.',
+            'animalname.regex' => 'El nombre del animal contiene caracteres no validos.',
+            'especieanimal.min' => 'La especie del animal debe tener al menos un caracter.',
+            'especieanimal.max' => 'La especie del animal no debe exceder de los 500 caracteres.'
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            return response()->json([
+                'success' => false,
+                'message' => $messages->first(),
+            ]);
+        }
         try {
             $data = $request->all();
-            #dd($data);
             $hash = new Hashids('', 10);
             $idAnimal = $hash->decode($data['id']);
             $UpdateA = ANIMales::where('an_id', $idAnimal)->first();

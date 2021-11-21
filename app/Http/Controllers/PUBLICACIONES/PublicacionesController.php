@@ -16,37 +16,63 @@ use Hashids\Hashids;
 class PublicacionesController extends Controller
 {
 protected function inserPost(Request $request){
-    $validator = Validator::make($request->all(), [
-        'select' => 'required',
-        //'videoanimal' => 'required',
-        'title'=>'required',
-        'contenido'=>'required',
-       // 'imageanimal' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        //'videoanimal' => 'required|mimes:mp4|max:100000',
+    $rules = [
+        'select' => ['required'],
+        'title' => ['required','min:1', 'max:80'],
+        'contenido' => ['required','min:1', 'max:500'],
+    ];
+    $messages = [
+        'select.required' => 'Debe seleccionar un tipo de animal para la publicación.',
+        'title.required' => 'El titulo de la publicación es requerido.',
+        'title.min' => 'El titulo debe tener al menos un caracter.',
+        'title.max' => 'El titulo no debe exceder de los 80 caracteres.',
+        'title.regex' => 'El titulo contiene caracteres no validos.',
+        'contenido.required' => 'El contenido de la publicación es requerido.',
+        'contenido.min' => 'El contenido debe tener al menos un caracter.',
+        'contenido.max' => 'El titcontenidoulo no debe exceder de los 500 caracteres.'
+    ];
+    $validator = Validator::make($request->all(), $rules, $messages);
 
-    ]);
     if ($validator->fails()) {
+        $messages = $validator->messages();
         return response()->json([
             'success' => false,
-            'message' => implode(",", $validator->messages()->all())
+            'message' => $messages->first(),
         ]);
     }
 
 
 
 try{
+    if($request->file('imageanimal')){
+        $rules2 = [
+            'imageanimal' => ['mimes:jpeg,png,jpg,svg|max:2048'],
+        ];
+        $messages2 = [
+            'imageanimal.max' => 'El archivo no debe ser superior a 2 megas'
+        ];
+        $validator2 = Validator::make($request->all(), $rules2, $messages2);
+        if ($validator2->fails()) {
+            $messagesF = $validator2->messages();
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' =>$messagesF->first(),
+                ]
+            );
+        }
+
+        $file = $request->file('imageanimal');
+        $imageName = Str::random(10) . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('images'), $imageName);
+        $url = asset('images/' . $imageName);
+    }else{
+        $url = null;
+    }
+
     $data=$request->all();
     $hash     = new Hashids('', 20);
     $animalHash= $hash->decode($data['select']);
-
-
-
-    #subiendo images a la nube y obteniendo el url del video.
-    $image = $request->file('imageanimal');
-    $file = $request->file('imageanimal');
-    $imageName = Str::random(10) . '.' . $file->getClientOriginalExtension();
-    $file->move(public_path('images'), $imageName);
-    $url = asset('images/' . $imageName);
 
 
     DB::beginTransaction();

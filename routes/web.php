@@ -95,5 +95,5 @@ Route::group(['middleware' => ['auth','userable']], function () {
     Route::get('/table/admin',  'App\Http\Controllers\UserController@tableAdmin');
     Route::get('/info/Admin',  'App\Http\Controllers\UserController@infoAdmin');
     Route::post('/edit/Admin',  'App\Http\Controllers\UserController@editAdmin');
-
+    Route::delete('delete/Admin', 'App\Http\Controllers\UserController@deleteAdmin');
 });

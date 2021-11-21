@@ -75,7 +75,6 @@ function addAnimal() {
 
     formEvento.append('nameAni', $('#nameAni').val());
     formEvento.append('especieAni', $('#especieAni').val());
-    formEvento.append('imageAni', $('#imageAni')[0].files[0]);
 
 
     Swal.fire({
@@ -175,7 +174,7 @@ function addPost() {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: 'Algo ha salido mal, intente más tarde.!',
+                            text: response.message,
 
                         })
                         // alert(response.message)
@@ -531,6 +530,8 @@ function infoAnimals(id) {
         }).done(function (response) {
         $("#animalname").val(response.nombre);
         $("#especieanimal").val(response.especie);
+        $('#updaanimal').data('id', id);
+
         $("#modal-animales").modal();
     }).fail(function (error) {
         Swal.fire(
@@ -1213,7 +1214,59 @@ function infoAdmin(id) {
         });
 
 }
+function deleteAdmin(id) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
+    Swal.fire({
+        title: '¿Estas seguro que deseas eliminar la cuenta de este administrador?',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: `Eliminar`,
+        denyButtonText: `Cancelar`,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: "Procesando...",
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                willOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            $.ajax({
+                type: "DELETE",
+                url: 'delete/Admin',
+                dataType: "JSON",
+                data: {
+                    code: id
+                },
+                success: function (response) {
+                    if (response.success) {
+                        $('#adminTable').DataTable().ajax.reload();
+                        Swal.fire(response.message, '', 'success')
+                    } else {
+                        Swal.close();
+                        Swal.fire(
+                            "Error",
+                            response.message,
+                            "error"
+                        );
+                        // alert(response.message)
+                    }
+                },
+            })
+            // Swal.fire('Saved!', '', 'success')
+        } else if (result.isDenied) {
+            //Swal.fire('Changes are not saved', '', 'info')
+            Swal.close();
+        }
+    })
+
+}
 const resizeImage = (img, maxWidth, maxHeight) => {
     var newWidth = img.width, newHeight = img.height
     if (img.width > img.height && img.width > maxWidth) {

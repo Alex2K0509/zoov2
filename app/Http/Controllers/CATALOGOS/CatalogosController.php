@@ -22,27 +22,65 @@ class CatalogosController extends Controller
      */
     protected function InserEvent(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'descrip' => 'required',
-            'dateini' => 'required',
-            'datefin' => 'required',
-            'timeini' => 'required',
-            'timefin' => 'required',
-            //'eventeimage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        $rules = [
+            'name' => ['required','min:1', 'max:80'],
+            'descrip' => ['required','min:1', 'max:255'],
+            'timeini' => ['required'],
+            'timefin' => ['required'],
+            'dateini' => ['required'],
+            'datefin' => ['required']
+        ];
+        $messages = [
+            'name.required' => 'El campo de nombre es requerido',
+            'name.min' => 'El campo de nombre debe tener al menos un caracter.',
+            'name.max' => 'El campo de nombre no debe exceder de los 80 caracteres.',
+            'descrip.descrip' => 'El campo de la descripción es requerido.',
+            'descrip.min' => 'El campo de la descripción debe tener al menos un caracter.',
+            'descrip.max' => 'El campo de la descripción no debe exceder de los 255 caracteres.',
+            'timeini.required' => 'La hora de inicio es requerida.',
+            'timefin.required' => 'La hora de fin es requerida.',
+            'dateini.required' => 'La fecha de inicio es requerida.',
+            'datefin.required' => 'La fecha de fin es requerida.'
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+
         if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => implode(",", $validator->messages()->all())
-            ]);
+            $messages = $validator->messages();
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' =>$messages->first(),
+                ]
+            );
         }
 
-        $User = auth()->user();
-        $file = $request->file('eventeimage');
-        $imageName = Str::random(10) . '.' . $file->getClientOriginalExtension();
-        $file->move(public_path('images'), $imageName);
-        $url = asset('images/' . $imageName);
+        if($request->file('eventeimage')){
+            $rules2 = [
+                'eventeimage' => ['mimes:jpeg,png,jpg,svg|max:2048'],
+            ];
+            $messages2 = [
+                'eventeimage.max' => 'El archivo no debe ser superior a 2 megas'
+            ];
+            $validator2 = Validator::make($request->all(), $rules2, $messages2);
+            if ($validator2->fails()) {
+                $messagesF = $validator2->messages();
+                return response()->json(
+                    [
+                        'success' => false,
+                        'message' =>$messagesF->first(),
+                    ]
+                );
+            }
+
+            $file = $request->file('eventeimage');
+            $imageName = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $imageName);
+            $url = asset('images/' . $imageName);
+        }else{
+            $url = null;
+        }
+
 
 
         $data = $request->all();
@@ -72,7 +110,7 @@ class CatalogosController extends Controller
             return response()->json(
                 [
                     'success' => false,
-                    'message' => 'Error, intentar más tarde.'
+                    'message' => $exception->getMessage()
                 ]
             );
         }
@@ -90,29 +128,35 @@ class CatalogosController extends Controller
 
     protected function InsertAnimal(Request $request)
     {
-        $data = $request->all();
-        $validator = Validator::make($request->all(), [
-            'nameAni' => 'required',
-            'especieAni' => 'required',
-        ]);
+        $rules = [
+            'nameAni' => ['required'],
+            'especieAni' => ['required']
+        ];
+        $messages = [
+            'nameAni.required' => 'El nombre del animal es requerido.',
+            'especieAni.required' => 'La especie del animal es requerida.'
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => implode(",", $validator->messages()->all())
-            ]);
-        }
-        try {
-            DB::beginTransaction();
-            $file = $request->file('imageAni');
-            $imageName = Str::random(10) . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('images'), $imageName);
-            $url = asset('images/' . $imageName);
+            $messages = $validator->messages();
 
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' =>$messages->first(),
+                ]
+            );
+        }
+
+        $data = $request->all();
+        try {
+
+
+            DB::beginTransaction();
 
             $Animal = new ANIMales();
             $Animal->setNombre($data['nameAni']);
             $Animal->setEspecie($data['especieAni']);
-            $Animal->setImage($url);
             $Animal->save();
             DB::commit();
             return response()->json(
@@ -133,6 +177,7 @@ class CatalogosController extends Controller
         }
 
     }
+
 
 
 }
