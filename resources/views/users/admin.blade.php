@@ -100,6 +100,61 @@
 
         </div>
 
+        <!------Modal para editar administradores------->
+        <div class="modal fade" id="modal-editar" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myLargeModalLabel">Editar administradores</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+
+                            <div class="col-12">
+
+                                <form role="form" id="form-admin" enctype="multipart/form-data" method="post">
+                                    <div class="form-group">
+                                        <p>Seleccione los atributos que desee actualizar</p>
+                                        <label for="nameAdmin-Editar">Nombre:</label>
+                                        <input type="text" class="form-control" id="nameAdmin-Editar" name="nameAdmin-Editar">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="emailAdmin-Editar">Correo electronico:</label>
+                                        <input type="email" class="form-control" name="emailAdmin-Editar" id="emailAdmin-Editar">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status">Estado de la cuenta:</label>
+                                        <input type="text" readonly class="form-control" name="status" id="status">
+                                        <br>
+                                        <select class="form-control" id="status-edit" name="status-edit">
+                                            <option value="1">HABILITADO</option>
+                                            <option value="0">BLOQUEADO</option>
+                                        </select>
+                                    </div>
+
+
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" href="javascript:void(0)" onclick="editAdmin()" class="btn btn-outline-primary"  data-id="" id="updateAdmin">Editar administrador.</button>
+
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+
+        </div>
 
 
 

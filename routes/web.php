@@ -93,5 +93,7 @@ Route::group(['middleware' => ['auth','userable']], function () {
 
     Route::post('/create/admin',  'App\Http\Controllers\UserController@createAdmin');
     Route::get('/table/admin',  'App\Http\Controllers\UserController@tableAdmin');
+    Route::get('/info/Admin',  'App\Http\Controllers\UserController@infoAdmin');
+    Route::post('/edit/Admin',  'App\Http\Controllers\UserController@editAdmin');
 
 });

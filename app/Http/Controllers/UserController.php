@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Hash as HHash;
 use DataTables;
+use Illuminate\Support\Facades\Validator;
+use mysql_xdevapi\Exception;
 
 class UserController extends Controller
 {
@@ -93,26 +95,19 @@ class UserController extends Controller
                 ->addColumn('action', function ($data) use ($hash) {
                     $userID = $hash->encode($data->getId());
                     return '<div>
-                            <button href="javascript:void(0)" onclick="deleteAnimals(\'' . $userID . '\')"
+                            <button href="javascript:void(0)" onclick="deleteAdmin(\'' . $userID . '\')"
                             class="btn btn-outline-danger btn-sm"
                             data-toggle="tooltip"
                             data-placement="bottom"
                             title="Eliminar administrador">
                             <i class="fa fa-trash"></i>
                             </button>
-                <button href="javascript:void(0)" onclick="infoAnimals(\'' . $userID . '\')"
+                <button href="javascript:void(0)" onclick="infoAdmin(\'' . $userID . '\')"
                             class="btn btn-outline-success btn-sm"
                             data-toggle="tooltip"
                             data-placement="bottom"
-                            title="Bloquear administrador">
+                            title="Editar adminitrador">
                             <i class="far fa-edit"></i>
-                            </button>
-                <button href="javascript:void(0)" onclick="infoAnimals(\'' . $userID . '\')"
-                            class="btn btn-outline-primary btn-sm"
-                            data-toggle="tooltip"
-                            data-placement="bottom"
-                            title="Enviar email para cambio de contraseña.">
-                            <i class="fa fa-envelope"></i>
                             </button>
                 </div>';
                 })
@@ -120,5 +115,72 @@ class UserController extends Controller
                 ->make(true);
         }
 
+    }
+
+    protected function  infoAdmin(Request $request){
+        $data = $request->all();
+        try {
+            $hash = new Hashids('', 10);
+            $id = $hash->decode($data['code']);
+            $InfoUser = User::find($id[0]);
+            return response()->json([
+                "nameAdmin" => $InfoUser->getName(),
+                "emailAdmin" => $InfoUser->getEmail(),
+                "status" => $InfoUser->getStatus(),
+            ]);
+        }catch (\Exception $exception){
+            return response()->json([
+                "error" => $exception->getMessage(),
+            ]);
+        }
+    }
+    protected function  editAdmin(Request $request){
+        $rules = [
+            'nameAdmin-Editar' => ['min:1', 'max:70', 'regex:/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/'],
+            'emailAdmin-Editar' => ['min:1', 'max:70', 'regex:/^[A-z0-9\\._-]+@[A-z0-9][A-z0-9-]*(\\.[A-z0-9_-]+)*\\.([A-z]{2,6})$/'],
+
+        ];
+        $messages = [
+            'nameAdmin-Editar.min' => 'El campo de nombre debe tener al menos un caracter.',
+            'nameAdmin-Editar.max' => 'El campo de nombre no debe exceder de los 70 caracteres.',
+            'nameAdmin-Editar.regex' => 'El campo de nombre no cumple con el formato permitido.',
+            'emailAdmin-Editar.min' => 'El campo de email debe tener al menos un caracter.',
+            'emailAdmin-Editar.max' => 'El campo de email no debe exceder de los 70 caracteres.',
+            'emailAdmin-Editar.regex' => 'El campo de email no cumple con el formato permitido.'
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' =>$messages->first(),
+                ]
+            );
+        }
+
+        try {
+            $data = $request->all();
+
+            $hash = new Hashids('', 10);
+            $idUsuario = $hash->decode($data['id']);
+            $UpdateA = User::where('id', $idUsuario)->first();
+            $UpdateA->setName($data['nameAdmin-Editar']);
+            $UpdateA->setEmail($data['emailAdmin-Editar']);
+            $UpdateA->setStatusNum($data['status-edit']);
+            $UpdateA->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => "Se ha actualizado correctamente."
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage()
+            ]);
+        }
     }
 }

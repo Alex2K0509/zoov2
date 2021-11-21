@@ -80,7 +80,7 @@ class User extends Authenticatable
     }
 
     public function getStatus(){
-        if($this->getAttribute('status') != 2){
+        if($this->getAttribute('status') != 0){
             return 'HABILITADO';
         }else{
             return 'BLOQUEADO';

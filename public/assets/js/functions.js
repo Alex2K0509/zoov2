@@ -1116,6 +1116,104 @@ function createAdmin(){
         }
     })
 }
+
+function editAdmin() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    let id = $('#updateAdmin').data('id');
+
+    let formAdmin = new FormData();
+    formAdmin.append('nameAdmin-Editar', $('#nameAdmin-Editar').val());
+    formAdmin.append('emailAdmin-Editar', $('#emailAdmin-Editar').val());
+    formAdmin.append('status-edit', $('#status-edit').val());
+    formAdmin.append('id', id);
+
+    //console.log(formAdmin)
+    Swal.fire({
+        title: '¿Estas seguro que deseas editar este administrador?',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: `Actualizar`,
+        denyButtonText: `Cancelar`,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: "Procesando...",
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                willOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: '/edit/Admin',
+                data: formAdmin,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.success) {
+                        $('#modal-editar').modal('hide');
+                        $('#adminTable').DataTable().ajax.reload();
+                        Swal.fire(response.message, '', 'success')
+                    } else {
+                        Swal.close();
+                        Swal.fire(
+                            "Error",
+                            response.message,
+                            "error"
+                        );
+                    }
+                },
+            })
+
+        } else if (result.isDenied) {
+
+            Swal.close();
+        }
+    })
+
+
+}
+
+function infoAdmin(id) {
+    Swal.fire({
+        title: "Procesando...",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        willOpen: () => {
+            Swal.showLoading();
+        }
+    });
+    $.ajax({
+        url: '/info/Admin',
+        type: "GET",
+        dataType: "JSON",
+        data: {
+            code: id
+        }
+    }).done(function (response) {
+        $("#emailAdmin-Editar").val(response.emailAdmin);
+        $("#nameAdmin-Editar").val(response.nameAdmin);
+        $("#status").val(response.status);
+        $('#updateAdmin').data('id', id);
+        $("#modal-editar").modal();
+    }).fail(function (error) {
+        Swal.fire(
+            "Error",
+            "algo salio mal",
+            "error"
+        );
+    })
+        .always(function () {
+            Swal.close();
+        });
+
+}
+
 const resizeImage = (img, maxWidth, maxHeight) => {
     var newWidth = img.width, newHeight = img.height
     if (img.width > img.height && img.width > maxWidth) {
