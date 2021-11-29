@@ -1118,6 +1118,63 @@ function createAdmin(){
     })
 }
 
+function createQr(){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+
+    let formEvento = new FormData();
+    formEvento.append('nameQR', $('#nameQR').val());
+    formEvento.append('imageQR', $('#imageQR')[0].files[0]);
+
+    Swal.fire({
+        title: '¿Estas seguro que deseas crear a este codigo?',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: `Crear`,
+        denyButtonText: `Cancelar`,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: "Procesando...",
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                willOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: '/create/QR',
+                data: formEvento,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.success) {
+                        $('#modal-crear').modal('hide');
+                        $('#qrTable').DataTable().ajax.reload();
+                        Swal.fire(response.message, '', 'success')
+                    } else {
+                        Swal.close();
+                        Swal.fire(
+                            "Error",
+                            response.message,
+                            "error"
+                        );
+                    }
+                },
+            })
+
+        } else if (result.isDenied) {
+
+            Swal.close();
+        }
+    })
+}
+
 function editAdmin() {
     $.ajaxSetup({
         headers: {
@@ -1267,6 +1324,61 @@ function deleteAdmin(id) {
     })
 
 }
+
+function deleteQR(id) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    Swal.fire({
+        title: '¿Estas seguro que deseas eliminar este QR?',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: `Eliminar`,
+        denyButtonText: `Cancelar`,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: "Procesando...",
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                willOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            $.ajax({
+                type: "DELETE",
+                url: 'delete/QR',
+                dataType: "JSON",
+                data: {
+                    code: id
+                },
+                success: function (response) {
+                    if (response.success) {
+                        $('#qrTable').DataTable().ajax.reload();
+                        Swal.fire(response.message, '', 'success')
+                    } else {
+                        Swal.close();
+                        Swal.fire(
+                            "Error",
+                            response.message,
+                            "error"
+                        );
+                        // alert(response.message)
+                    }
+                },
+            })
+            // Swal.fire('Saved!', '', 'success')
+        } else if (result.isDenied) {
+            //Swal.fire('Changes are not saved', '', 'info')
+            Swal.close();
+        }
+    })
+
+}
+
 const resizeImage = (img, maxWidth, maxHeight) => {
     var newWidth = img.width, newHeight = img.height
     if (img.width > img.height && img.width > maxWidth) {
@@ -1461,6 +1573,47 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         ajax: 'table/admin',
+        autoWidth: false,
+        responsive: {
+            details: {
+                type: 'column',
+                target: 'tr'
+            }
+        },
+        columns: [
+            {
+                data: 'adminName',
+                name: 'adminName'
+            },
+            {
+                data: 'adminEmail',
+                name: 'adminEmail'
+            },
+            {
+                data: 'adminStatus',
+                name: 'adminStatus'
+            }, {
+                data: 'action',
+                name: 'action'
+            }
+        ],
+        columnDefs: [{
+            "targets": 1, // your case first column
+            "className": "contenido-tablas-descripcion"
+
+        }],
+        drawCallback: function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        }
+    });
+
+    const table5 = $('#qrTable').DataTable({
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+        },
+        processing: true,
+        serverSide: true,
+        ajax: '/table/QR',
         autoWidth: false,
         responsive: {
             details: {

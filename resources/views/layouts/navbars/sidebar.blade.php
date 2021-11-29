@@ -89,12 +89,17 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user.index') }}">
-                                    <i class="fas fa-plus-circle"></i>   {{ __('CATALOGOS') }}
+                                    <i class="fas fa-plus-circle"></i>   {{ __('Catalogos') }}
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user.admin') }}">
                                     <i class="fas fa-fingerprint"></i>   {{ __('Adminitradores') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('qr.index') }}">
+                                    <i class="fas fa-qrcode"></i>   {{ __('Codigos QR') }}
                                 </a>
                             </li>
                         </ul>

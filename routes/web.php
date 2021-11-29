@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth','userable']], function () {
 
     Route::get('user', 'App\Http\Controllers\UserController@index')->name('user.index'); #pagina inicial
     Route::get('admin', 'App\Http\Controllers\UserController@admin')->name('user.admin'); #pagina inicial
+    Route::get('qr', 'App\Http\Controllers\QR\QrController@admin')->name('qr.index'); #pagina QR
 
     Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']); #perfil del usuario
 
@@ -96,4 +97,8 @@ Route::group(['middleware' => ['auth','userable']], function () {
     Route::get('/info/Admin',  'App\Http\Controllers\UserController@infoAdmin');
     Route::post('/edit/Admin',  'App\Http\Controllers\UserController@editAdmin');
     Route::delete('delete/Admin', 'App\Http\Controllers\UserController@deleteAdmin');
+
+    Route::post('/create/QR',  'App\Http\Controllers\QR\QrController@createQr');
+    Route::get('/table/QR',  'App\Http\Controllers\QR\QrController@tableQr');
+    Route::post('/edit/QR',  'App\Http\Controllers\QR\QrController@editQr');
 });

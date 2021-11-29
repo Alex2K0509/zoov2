@@ -36,14 +36,15 @@
       19 => 'Illuminate\\Translation\\TranslationServiceProvider',
       20 => 'Illuminate\\Validation\\ValidationServiceProvider',
       21 => 'Illuminate\\View\\ViewServiceProvider',
-      22 => 'App\\Providers\\AppServiceProvider',
-      23 => 'App\\Providers\\AuthServiceProvider',
-      24 => 'App\\Providers\\EventServiceProvider',
-      25 => 'App\\Providers\\RouteServiceProvider',
-      26 => 'App\\Providers\\GoogleStorageServiceProvider',
-      27 => 'ProtoneMedia\\LaravelFFMpeg\\Support\\ServiceProvider',
-      28 => 'Barryvdh\\DomPDF\\ServiceProvider',
-      29 => 'Intervention\\Image\\ImageServiceProvider',
+      22 => 'LaravelQRCode\\Providers\\QRCodeServiceProvider',
+      23 => 'App\\Providers\\AppServiceProvider',
+      24 => 'App\\Providers\\AuthServiceProvider',
+      25 => 'App\\Providers\\EventServiceProvider',
+      26 => 'App\\Providers\\RouteServiceProvider',
+      27 => 'App\\Providers\\GoogleStorageServiceProvider',
+      28 => 'ProtoneMedia\\LaravelFFMpeg\\Support\\ServiceProvider',
+      29 => 'Barryvdh\\DomPDF\\ServiceProvider',
+      30 => 'Intervention\\Image\\ImageServiceProvider',
     ),
     'aliases' => 
     array (
@@ -71,6 +72,7 @@
       'Notification' => 'Illuminate\\Support\\Facades\\Notification',
       'Password' => 'Illuminate\\Support\\Facades\\Password',
       'Queue' => 'Illuminate\\Support\\Facades\\Queue',
+      'QRCodes' => 'LaravelQRCode\\Facades\\QRCode',
       'Redirect' => 'Illuminate\\Support\\Facades\\Redirect',
       'Request' => 'Illuminate\\Support\\Facades\\Request',
       'Response' => 'Illuminate\\Support\\Facades\\Response',
@@ -188,7 +190,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'B:\\xampp\\htdocs\\ZOO\\storage\\framework/cache/data',
+        'path' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -353,10 +355,10 @@
     'orientation' => 'portrait',
     'defines' => 
     array (
-      'font_dir' => 'B:\\xampp\\htdocs\\ZOO\\storage\\fonts/',
-      'font_cache' => 'B:\\xampp\\htdocs\\ZOO\\storage\\fonts/',
-      'temp_dir' => 'C:\\Users\\aleex\\AppData\\Local\\Temp',
-      'chroot' => 'B:\\xampp\\htdocs\\ZOO',
+      'font_dir' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\fonts/',
+      'font_cache' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\fonts/',
+      'temp_dir' => 'C:\\Users\\jesus\\AppData\\Local\\Temp',
+      'chroot' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO',
       'enable_font_subsetting' => false,
       'pdf_backend' => 'CPDF',
       'default_media_type' => 'screen',
@@ -378,7 +380,7 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'B:\\xampp\\htdocs\\ZOO\\storage\\app',
+        'root' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\app',
         'permissions' => 
         array (
           'file' => 
@@ -396,7 +398,7 @@
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'B:\\xampp\\htdocs\\ZOO\\storage\\app/public',
+        'root' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\app/public',
         'url' => 'http://telpochcalli.com.mx//storage',
         'visibility' => 'public',
       ),
@@ -413,7 +415,7 @@
     ),
     'links' => 
     array (
-      'B:\\xampp\\htdocs\\ZOO\\public\\storage' => 'B:\\xampp\\htdocs\\ZOO\\storage\\app/public',
+      'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\public\\storage' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\app/public',
     ),
   ),
   'hashing' => 
@@ -447,13 +449,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'B:\\xampp\\htdocs\\ZOO\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'B:\\xampp\\htdocs\\ZOO\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -503,7 +505,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'B:\\xampp\\htdocs\\ZOO\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -560,7 +562,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'B:\\xampp\\htdocs\\ZOO\\resources\\views/vendor/mail',
+        0 => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -639,7 +641,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'B:\\xampp\\htdocs\\ZOO\\storage\\framework/sessions',
+    'files' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -659,9 +661,9 @@
   array (
     'paths' => 
     array (
-      0 => 'B:\\xampp\\htdocs\\ZOO\\resources\\views',
+      0 => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\resources\\views',
     ),
-    'compiled' => 'B:\\xampp\\htdocs\\ZOO\\storage\\framework\\views',
+    'compiled' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\framework\\views',
   ),
   'flare' => 
   array (
@@ -739,7 +741,7 @@
     'timeout' => 3600,
     'enable_logging' => true,
     'set_command_and_error_output_on_exception' => false,
-    'temporary_files_root' => 'C:\\Users\\aleex\\AppData\\Local\\Temp',
+    'temporary_files_root' => 'C:\\Users\\jesus\\AppData\\Local\\Temp',
   ),
   'datatables' => 
   array (
