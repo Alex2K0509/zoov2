@@ -25,9 +25,9 @@
                         <form id="upload-image-form" enctype="multipart/form-data" method="post" >
                             @csrf
                             <div class="form-group">
-                                <p>Catalogo de eventos</p>
+                                <p>catálogo de eventos</p>
                                 <h5>Mediante este formulario podrá registrar un nuevo evento del zoologico</h5>
-                                <h6><small>*Si la fecha de evento ya paso, en automatico se eliminara*</small> </h6>
+                                <h6><small>*Si la fecha de evento ya pasó, en automático se eliminará*</small> </h6>
                               <label for="name">Nombre del evento:</label>
                               <input type="text" class="form-control" id="name" name="name">
                             </div>
@@ -36,7 +36,7 @@
                                 <input type="text" class="form-control" id="descrip" name="descrip">
                             </div>
                             <div class="form-group">
-                              <label for="dateini">Fecha de inico:</label>
+                              <label for="dateini">Fecha de inicio:</label>
                               <input type="date" class="form-control" id="dateini" name="dateini">
                             </div>
                             <div class="form-group">
@@ -68,7 +68,7 @@
                         <form role="form" id="upload-animal-form" enctype="multipart/form-data" method="post">
                             @csrf
                             <div class="form-group">
-                                <p>Catalogo de animales</p>
+                                <p>catálogo de animales</p>
                                 <h5>Mediante este formulario podrás agregar registros de las especies de animales con las que cuente el zoo</h5>
                               <label for="nameAni">Nombre del animal:</label>
                               <input type="text" class="form-control" id="nameAni" name="nameAni">
@@ -98,7 +98,7 @@
                         @csrf
                         <div class="form-group">
                             <p>publicaciones para los animales</p>
-                            <h5>Mediante este formulario podras crear publicaciones de algun animales que haya creado previamente,</h5>
+                            <h5>Mediante este formulario podrás crear publicaciones de algún animales que haya creado previamente</h5>
                         </div>
                         <div class="form-group">
                             <label for="select">Lista de animales disponibles:</label>
@@ -108,7 +108,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="name">Titulo de la publiación:</label>
+                            <label for="name">Titulo de la publicación:</label>
                             <input type="text" class="form-control" id="title" name="title">
                         </div>
                         <div class="form-group">

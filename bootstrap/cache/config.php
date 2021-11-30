@@ -190,7 +190,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\framework/cache/data',
+        'path' => 'B:\\xampp\\htdocs\\ZOO\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -355,10 +355,10 @@
     'orientation' => 'portrait',
     'defines' => 
     array (
-      'font_dir' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\fonts/',
-      'font_cache' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\fonts/',
-      'temp_dir' => 'C:\\Users\\jesus\\AppData\\Local\\Temp',
-      'chroot' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO',
+      'font_dir' => 'B:\\xampp\\htdocs\\ZOO\\storage\\fonts/',
+      'font_cache' => 'B:\\xampp\\htdocs\\ZOO\\storage\\fonts/',
+      'temp_dir' => 'C:\\Users\\aleex\\AppData\\Local\\Temp',
+      'chroot' => 'B:\\xampp\\htdocs\\ZOO',
       'enable_font_subsetting' => false,
       'pdf_backend' => 'CPDF',
       'default_media_type' => 'screen',
@@ -380,7 +380,7 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\app',
+        'root' => 'B:\\xampp\\htdocs\\ZOO\\storage\\app',
         'permissions' => 
         array (
           'file' => 
@@ -398,7 +398,7 @@
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\app/public',
+        'root' => 'B:\\xampp\\htdocs\\ZOO\\storage\\app/public',
         'url' => 'http://telpochcalli.com.mx//storage',
         'visibility' => 'public',
       ),
@@ -415,7 +415,7 @@
     ),
     'links' => 
     array (
-      'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\public\\storage' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\app/public',
+      'B:\\xampp\\htdocs\\ZOO\\public\\storage' => 'B:\\xampp\\htdocs\\ZOO\\storage\\app/public',
     ),
   ),
   'hashing' => 
@@ -449,13 +449,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\logs/laravel.log',
+        'path' => 'B:\\xampp\\htdocs\\ZOO\\storage\\logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\logs/laravel.log',
+        'path' => 'B:\\xampp\\htdocs\\ZOO\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -505,7 +505,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\logs/laravel.log',
+        'path' => 'B:\\xampp\\htdocs\\ZOO\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -562,7 +562,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\resources\\views/vendor/mail',
+        0 => 'B:\\xampp\\htdocs\\ZOO\\resources\\views/vendor/mail',
       ),
     ),
   ),
@@ -641,7 +641,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\framework/sessions',
+    'files' => 'B:\\xampp\\htdocs\\ZOO\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -661,9 +661,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\resources\\views',
+      0 => 'B:\\xampp\\htdocs\\ZOO\\resources\\views',
     ),
-    'compiled' => 'C:\\Users\\jesus\\Documents\\Proyectos\\ZOO\\storage\\framework\\views',
+    'compiled' => 'B:\\xampp\\htdocs\\ZOO\\storage\\framework\\views',
   ),
   'flare' => 
   array (
@@ -741,7 +741,7 @@
     'timeout' => 3600,
     'enable_logging' => true,
     'set_command_and_error_output_on_exception' => false,
-    'temporary_files_root' => 'C:\\Users\\jesus\\AppData\\Local\\Temp',
+    'temporary_files_root' => 'C:\\Users\\aleex\\AppData\\Local\\Temp',
   ),
   'datatables' => 
   array (

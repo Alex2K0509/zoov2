@@ -9,9 +9,9 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title mt-0 mb-0 header-title">Centro de adminitradores</h5>
+                        <h5 class="card-title mt-0 mb-0 header-title">Centro de administradores</h5>
                         <br>
-                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podras crear,bloquear o eliminar administradores.</h6>
+                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podrás crear, bloquear o eliminar administradores.</h6>
                         <br>
                         <button type="button" data-target="#modal-crear"  data-toggle="modal" class="btn btn-outline-success btn-sm">Crear administrador</button>
                         <br>
@@ -20,7 +20,7 @@
                             <thead>
                             <tr style="width: 100%">
                                 <th  scope="col">Nombre del administrador</th>
-                                <th class="contenido-tablas-descripcion" scope="col">Correo electronico</th>
+                                <th class="contenido-tablas-descripcion" scope="col"> CORREO ELECTRÓNICO</th>
                                 <th scope="col">Estado de la cuenta</th>
                                 <th scope="col">Acciones</th>
                             </tr>

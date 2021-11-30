@@ -3,7 +3,7 @@
 @section('content')
     @include('users.partials.header', [
         'title' => __('Bienvenido') . ' '. auth()->user()->name,
-        'description' => __(' En esta sección podras modificar tu información personal, como tu imagen, contraseña o datos privados.'),
+        'description' => __('En esta sección podrás modificar tu información personal, como tu imagen, contraseña o datos privados.'),
         'class' => 'col-lg-7'
     ])
 

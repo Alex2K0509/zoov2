@@ -11,7 +11,7 @@
                     <div class="card-body">
                         <h5 class="card-title mt-0 mb-0 header-title">Evento creados</h5>
                         <br>
-                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podra editar un evento,eliminar o modificar en caso de ser necesario.</h6>
+                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podrá editar un evento,eliminar o modificar en caso de ser necesario.</h6>
 
 
                             <table id="example" class="table table-striped table-bordered dataTable responsive" style="width:100%" role="grid" aria-describedby="example_info">
@@ -44,9 +44,9 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title mt-0 mb-0 header-title">PUBLICACIONES creadas</h5>
+                        <h5 class="card-title mt-0 mb-0 header-title">Publicaciones creadas</h5>
                         <br>
-                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podra editar una publicación,eliminar o modificar en caso de ser necesario.</h6>
+                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podrá editar una publicación,eliminar o modificar en caso de ser necesario.</h6>
 
 
                         <table id="example2" class="table table-striped table-bordered dataTable responsive" style="width:100%" role="grid" aria-describedby="example_info">
@@ -80,7 +80,7 @@
                     <div class="card-body">
                         <h5 class="card-title mt-0 mb-0 header-title">Animales creados</h5>
                         <br>
-                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podra editar un animal,eliminar o modificar en caso de ser necesario.</h6>
+                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podrá editar un animal,eliminar o modificar en caso de ser necesario.</h6>
 
 
                         <table id="example3" class="table table-striped table-bordered dataTable responsive" style="width:100%" role="grid" aria-describedby="example_info">
