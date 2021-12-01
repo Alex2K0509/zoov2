@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'name' => 'Zoo Control',
+    'name' => 'ZOO-CONTROL',
     'manifest' => [
-        'name' => env('APP_NAME', 'Zoo Control'),
+        'name' => env('APP_NAME', 'ZOO-CONTROL'),
         'short_name' => 'ZOO',
         'start_url' => '/',
         'background_color' => '#ffffff',
