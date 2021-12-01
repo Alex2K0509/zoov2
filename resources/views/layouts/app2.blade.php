@@ -96,10 +96,6 @@
 
 
 
-
-
-
-
     </head>
 
     @include('flash-message')

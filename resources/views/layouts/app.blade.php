@@ -79,7 +79,7 @@
 
 
 
-
+    @laravelPWA
 
 
 </head>

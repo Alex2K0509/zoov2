@@ -62,7 +62,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/facade/flare-client-php" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/facade/ignition" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/version" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/manifest" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/fideloper/proxy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/fruitcake/laravel-cors" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/ui" />
@@ -137,6 +136,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/php-ffmpeg/php-ffmpeg" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/evenement/evenement" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/james-heinrich/getid3" />
+<<<<<<< Updated upstream
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/passport" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/nyholm/psr7" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/event" />
@@ -163,6 +163,10 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/intervention/image" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/werneckbh/laravel-qr-code" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/werneckbh/qr-code" />
+=======
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/manifest" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/silviolleite/laravelpwa" />
+>>>>>>> Stashed changes
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
