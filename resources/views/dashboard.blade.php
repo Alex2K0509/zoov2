@@ -11,7 +11,7 @@
                     <div class="card-body">
                         <h5 class="card-title mt-0 mb-0 header-title">Evento creados</h5>
                         <br>
-                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podra editar un evento,eliminar o modificar en caso de ser necesario.</h6>
+                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podrá editar un evento,eliminar o modificar en caso de ser necesario.</h6>
 
 
                             <table id="example" class="table table-striped table-bordered dataTable responsive" style="width:100%" role="grid" aria-describedby="example_info">
@@ -46,7 +46,7 @@
                     <div class="card-body">
                         <h5 class="card-title mt-0 mb-0 header-title">Publicaciones creadas</h5>
                         <br>
-                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podra editar una publicación,eliminar o modificar en caso de ser necesario.</h6>
+                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podrá editar una publicación,eliminar o modificar en caso de ser necesario.</h6>
 
 
                         <table id="example2" class="table table-striped table-bordered dataTable responsive" style="width:100%" role="grid" aria-describedby="example_info">
@@ -80,7 +80,7 @@
                     <div class="card-body">
                         <h5 class="card-title mt-0 mb-0 header-title">Animales creados</h5>
                         <br>
-                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podra editar un animal,eliminar o modificar en caso de ser necesario.</h6>
+                        <h6 class="card-title mt-0 mb-0 header-title">En este apartado podrá editar un animal,eliminar o modificar en caso de ser necesario.</h6>
 
 
                         <table id="example3" class="table table-striped table-bordered dataTable responsive" style="width:100%" role="grid" aria-describedby="example_info">
@@ -286,8 +286,92 @@
             </div><!-- /.modal-dialog -->
 
         </div>
+
+        <!------Modal para el pdf de los eventos------->
+        <div class="modal fade" id="modal-evento-pdf" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myLargeModalLabel">Evento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+
+                            <iframe src="" style="background-color: #050107" id="pdf-evento" width="100%" height="600px" class="embed-responsive-item" frameborder="0"></iframe>
+
+                        </div>
+
+
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+
+        </div>
+
+        <!------Modal para el pdf de las publicaciones------->
+        <div class="modal fade" id="modal-post-pdf" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myLargeModalLabel">Evento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+
+                            <iframe src="" style="background-color: #050107" id="post-evento" width="100%" height="600px" class="embed-responsive-item" frameborder="0"></iframe>
+
+                        </div>
+
+
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+
+        </div>
+
+        <!------Modal para el pdf de las animales------->
+        <div class="modal fade" id="modal-animal-pdf" tabindex="-1" role="dialog"
+             aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myLargeModalLabel">Evento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="row">
+
+                            <iframe src="" style="background-color: #050107" id="pdf-animal" width="100%" height="600px" class="embed-responsive-item" frameborder="0"></iframe>
+
+                        </div>
+
+
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+
+        </div>
+
     </div>
+
 @endsection
+
 
 @push('js')
     <script src="{{ asset('assets/js/functions.js') }}"> </script>

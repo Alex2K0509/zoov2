@@ -7,13 +7,13 @@
         <div class="row justify-content-center">
             <div class="col-lg-5 col-md-7">
                 <div class="card bg-secondary shadow border-0">
-                  
+
                     <div class="card-body px-lg-5 py-lg-5">
                         <div class="text-center text-muted mb-4">
                             <small>
                                 Bienvenido, ingresa tus credenciales para poder acceder a todas las acciones del sistema.
                                     <br>
-                                
+
                             </small>
                         </div>
                         <form role="form" method="POST" action="{{ route('login') }}">
@@ -37,7 +37,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Contraseña') }}" type="password" value="secret" required>
+                                    <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('Contraseña') }}" type="password" required>
                                 </div>
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -59,16 +59,9 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-6">
-                        @if (Route::has('password.request'))
                             <a href="{{ route('password.request') }}" class="text-light" style="color: white">
-                                <small style="color: white">{{ __('¿Olvidate tu contraseña?') }}</small>
+                                <small style="color: black">{{ __('¿Olvidate tu contraseña?') }}</small>
                             </a>
-                        @endif
-                    </div>
-                    <div class="col-6 text-right">
-                        <a href="{{ route('register') }}" class="text-light" style="color: white">
-                            <small style="color: white">{{ __('Crear una nueva cuenta') }}</small>
-                        </a>
                     </div>
                 </div>
             </div>

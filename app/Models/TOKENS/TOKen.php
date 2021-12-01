@@ -4,8 +4,10 @@
 namespace App\Models\TOKENS;
 
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 class TOKen extends Model
 {
     protected $table = 'token';
@@ -36,7 +38,6 @@ class TOKen extends Model
     }
 
     public static function InsertToken($data){
-        #dd($data);
         try {
 
            DB::beginTransaction();
@@ -49,7 +50,6 @@ class TOKen extends Model
             ];
             return response()->json($response, 200);
         }catch (\Exception $exception){
-            dd($exception);
             DB::rollBack();
             $response = [
                 "mensaje" => "Error en la transaccion",
@@ -61,4 +61,26 @@ class TOKen extends Model
         }
     }
 
+    public static function apiclima(){
+
+
+        $product = Http::get('api.openweathermap.org/data/2.5/weather',
+                ['id' => '3531023',
+                'appid' => '878ee1891bfbdbcfff364b3a0b11db80',
+                ]
+        );
+        $body = $product->json();
+        #dd($body);
+        $information = [
+            "datehour"=>$fecha=Carbon::now()->toDateTimeString(),
+            "temp"=>$body['main']['temp'] - 273.15,
+            "humedad"=> $body['main']['humidity'],
+            "velocidadViento"=>$body['wind']['speed'],
+            "temperatura_min"=>$body['main']['temp_min'] - 273.15,
+            "temperatura_max"=>$body['main']['temp_max'] - 273.15
+        ];
+
+        return view('welcome', ['information' => $information]);
+
+    }
 }

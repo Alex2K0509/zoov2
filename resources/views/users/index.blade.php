@@ -5,6 +5,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.js"defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/additional-methods.min.js"></script>
+
     <style>
         .progress { position:relative; width:100%; }
         .bar { background-color: #00ff00; width:0%; height:20px; }
@@ -20,8 +25,9 @@
                         <form id="upload-image-form" enctype="multipart/form-data" method="post" >
                             @csrf
                             <div class="form-group">
-                                <p>Catalogo de eventos</p>
+                                <p>catálogo de eventos</p>
                                 <h5>Mediante este formulario podrá registrar un nuevo evento del zoologico</h5>
+                                <h6><small>*Si la fecha de evento ya pasó, en automático se eliminará*</small> </h6>
                               <label for="name">Nombre del evento:</label>
                               <input type="text" class="form-control" id="name" name="name">
                             </div>
@@ -30,7 +36,7 @@
                                 <input type="text" class="form-control" id="descrip" name="descrip">
                             </div>
                             <div class="form-group">
-                              <label for="dateini">Fecha de inico:</label>
+                              <label for="dateini">Fecha de inicio:</label>
                               <input type="date" class="form-control" id="dateini" name="dateini">
                             </div>
                             <div class="form-group">
@@ -47,22 +53,22 @@
                                 <input type="time" class="form-control" id="timefin" name="timefin">
                               </div>
                               <div class="form-group">
-                                <label for="eventeimage">Imagen promocional del evento</label>
+                                <label for="eventeimage">Imagen promocional del evento (Opcional):</label>
                                 <input  type="file" class="form-control" id="eventeimage" name="eventeimage">
                               </div>
-                              <button type="button" class="btn btn-primary" href="javascript:void(0)" onclick="addEvento()">Guardar evento</button>
+                              <button type="button" class="btn btn-primary" href="javascript:void(0)" onclick="addEvento()">Publicar evento</button>
 
                           </form>
                     </div>
 
                 </div>
-            </div>
-            <div class="col-xl-4">
+            </div>            <div class="col-xl-4">
                 <div class="card shadow">
                     <div class="card-header border-0">
                         <form role="form" id="upload-animal-form" enctype="multipart/form-data" method="post">
+                            @csrf
                             <div class="form-group">
-                                <p>Catalogo de animales</p>
+                                <p>catálogo de animales</p>
                                 <h5>Mediante este formulario podrás agregar registros de las especies de animales con las que cuente el zoo</h5>
                               <label for="nameAni">Nombre del animal:</label>
                               <input type="text" class="form-control" id="nameAni" name="nameAni">
@@ -74,7 +80,7 @@
 
 
 
-                            <button type="button" href="javascript:void(0)" onclick="addAnimal()" class="btn btn-default">Guardar</button>
+                            <button type="button" href="javascript:void(0)" onclick="addAnimal()" class="btn btn-default">Almacenar animal</button>
                           </form>
                     </div>
 
@@ -92,7 +98,7 @@
                         @csrf
                         <div class="form-group">
                             <p>publicaciones para los animales</p>
-                            <h5>Mediante este formulario podras crear publicaciones de algun animales que haya creado previamente,</h5>
+                            <h5>Mediante este formulario podrás crear publicaciones de algún animales que haya creado previamente</h5>
                         </div>
                         <div class="form-group">
                             <label for="select">Lista de animales disponibles:</label>
@@ -102,7 +108,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="name">Titulo de la publiación:</label>
+                            <label for="name">Titulo de la publicación:</label>
                             <input type="text" class="form-control" id="title" name="title">
                         </div>
                         <div class="form-group">
@@ -111,18 +117,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="eventeimage">Imagen de la publicación:</label>
+                            <label for="eventeimage">Imagen de la publicación (Opcional):</label>
                             <input  type="file" class="form-control" id="imageanimal" name="imageanimal">
                         </div>
 
-                        <!--  <div class="form-group">
-                            <label for="videoanimal">Imagen de la publicación:</label>
-                            <input name="videoanimal" id="videoanimal" type="file" class="form-control"><br/>
-
-
-
-                        </div>
-                          <br>---->
               <button type="button" class="btn btn-primary" href="javascript:void(0)" onclick="addPost()">Crear publicación</button>
 
                     </form>

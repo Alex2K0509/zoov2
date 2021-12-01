@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers\Records;
+namespace App\Http\Controllers\RECORDS;
 use App\Http\Controllers\Controller;
 
 use App\Models\ANIMALES\ANIMales;
@@ -31,31 +31,31 @@ class RecordsController extends Controller
                 ->addIndexColumn()
                 ->addColumn('eventonombre', function ($data) {
                     $desc = $data->getEveNombre();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })->addColumn('eventodescrip', function ($data) {
                     $desc = $data->getEveDescripcion();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('eventohoraini', function ($data) {
-                    $desc = $data->getEveHorarioIni();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $desc = date('h:i A', strtotime($data->getEveHorarioIni()));
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('eventohorafin', function ($data) {
-                    $desc = $data->getEveHorarioFin();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $desc = date('h:i A', strtotime($data->getEveHorarioFin()));
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('eventofechaini', function ($data) {
                     $desc = $data->getEveFechaIni();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('eventofechafin', function ($data) {
                     $desc = $data->getEveFechaFin();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('action', function ($data) use ($hash) {
@@ -101,10 +101,44 @@ class RecordsController extends Controller
         return view('dashboard', compact('alleventos'));
 
     }
-
+    /**
+     * @autor Alex vergara
+     * @function Permiter editar un evento
+     * @param request
+     * @return mixed
+     */
     protected function editeventos(Request $request)
     {
+        $rules = [
+            'name' => ['min:1', 'max:80'],
+            'descrip' => ['min:1', 'max:255'],
+            'timeini' => ['required'],
+            'timefin' => ['required'],
+            'dateini' => ['required'],
+            'datefin' => ['required']
+        ];
+        $messages = [
+            'name.min' => 'El campo de nombre debe tener al menos un caracter.',
+            'name.max' => 'El campo de nombre no debe exceder de los 80 caracteres.',
+            'descrip.min' => 'El campo de la descripción debe tener al menos un caracter.',
+            'descrip.max' => 'El campo de la descripción no debe exceder de los 255 caracteres.',
+            'timeini.required' => 'La hora de inicio es requerida.',
+            'timefin.required' => 'La hora de fin es requerida.',
+            'dateini.required' => 'La fecha de inicio es requerida.',
+            'datefin.required' => 'La fecha de fin es requerida.'
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
 
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' =>$messages->first(),
+                ]
+            );
+        }
         $imageEve = $request->file('eventeimage');
         if (!is_null($imageEve)) {
             $validator = Validator::make($request->all(), [
@@ -119,8 +153,8 @@ class RecordsController extends Controller
             #SUBIENDO LA IMAGEN AL DRIVE
             $imageName = Str::random(10) . '.' . $imageEve->getClientOriginalExtension();
             $filePath = 'images/' . $imageName;
-            $diskImage = \Storage::disk('gcs')->put($filePath, file_get_contents($imageEve), 'public');
-            $gcsImage = \Storage::disk('gcs');
+            $diskImage = \Storage::disk('public')->put($filePath, file_get_contents($imageEve), 'public');
+            $gcsImage = \Storage::disk('public');
             $imageurl = $gcsImage->url('images' . "/" . $imageName);
 
         }
@@ -128,20 +162,18 @@ class RecordsController extends Controller
 
         try {
             $data = $request->all();
-            #dd($data);
             $hash = new Hashids('', 10);
 
 
-            #
+
             $ideve = $hash->decode($data['id']);
-            #dd($imageurl);
             $UpdateEve = CATEventos::where('eve_eve', $ideve)->first();
             $dburl = isset($imageurl) ? !is_null($imageurl) ? $imageurl : $UpdateEve->getEveImage() : $UpdateEve->getEveImage();
-            #$dburl = is_null($imageurl) ? $imageurl : $UpdateEve->getEveImage();
 
-            # dd($dburl);
-            #DB::beginTransaction();
+
+
             $UpdateEve->setEveNombre($data['name']);
+            $UpdateEve->setEveDescripcion($data['descrip']);
             $UpdateEve->setEveHorarioIni($data['timeini']);
             $UpdateEve->setEveHorarioFin($data['timefin']);
             $UpdateEve->setEveFechaIni($data['dateini']);
@@ -162,7 +194,12 @@ class RecordsController extends Controller
             ]);
         }
     }
-
+    /**
+     * @autor Alex vergara
+     * @function Hace la solicitud para ver información de un evento dentrop del modal
+     * @param request
+     * @return mixed
+     */
     protected function infoediteve(Request $request)
     {
         $data = $request->all();
@@ -226,22 +263,24 @@ class RecordsController extends Controller
                 ->addIndexColumn()
                 ->addColumn('animalpub', function ($data) {
                     $desc = $data->animales->getNombre();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('titulopub', function ($data) {
                     $desc = $data->getTitle();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('contenidopub', function ($data) {
                     $desc = $data->getDescrip();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('createdpub', function ($data) {
-                    $desc = $data->getCreatedAt();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $desc =  $data->getCreatedAt();
+                    #$desc =  date('h:i A', $data->getCreatedAt());
+
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('action', function ($data) use ($hash) {
@@ -283,7 +322,12 @@ class RecordsController extends Controller
         }
 
     }
-
+    /**
+     * @autor Alex vergara
+     * @function Retorna la datatable de los animales
+     * @param request
+     * @return mixed
+     */
     protected function tableAnimales(Request $request)
     {
 
@@ -296,17 +340,17 @@ class RecordsController extends Controller
                 ->addIndexColumn()
                 ->addColumn('animalname', function ($data) {
                     $desc = $data->getNombre();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('especieAnimal', function ($data) {
                     $desc = $data->getEspecie();
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('dateAnimal', function ($data) {
                     $desc = $data->created_at;
-                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">"' . $desc . '"</div>';
+                    $btn = '<div data-toggle="tooltip" data-placement="left" title="' . $desc . '">' . $desc . '</div>';
                     return $btn;
                 })
                 ->addColumn('action', function ($data) use ($hash) {
@@ -326,6 +370,13 @@ class RecordsController extends Controller
                             title="Editar publicación">
                             <i class="far fa-edit"></i>
                             </button>
+                 <button href="javascript:void(0)" onclick="createPdfAni(\'' . $Aniid . '\')"
+                             class="btn btn-outline-primary btn-sm"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="Crear pdf">
+                           <i  class="fa fa-file-pdf" aria-hidden="true"></i>
+                            </button>
 
                 </div>';
                 })
@@ -343,14 +394,13 @@ class RecordsController extends Controller
      */
     protected function infoPublications(Request $request)
     {
-        #dd("hola");
+
         $data = $request->all();
         try {
             $hash = new Hashids('', 10);
             $id = $hash->decode($data['code']);
 
             $InfoPublicaciones = PUBlicaciones::find($id[0]);
-            #dd($InfoPublicaciones);
             return response()->json([
                 "title" => $InfoPublicaciones->getTitle(),
                 "descripcion" => $InfoPublicaciones->getDescrip(),
@@ -361,7 +411,9 @@ class RecordsController extends Controller
 
 
         } catch (\Exception $exception) {
-            dd($exception);
+            return response()->json([
+                "error" => $exception->getMessage(),
+            ]);
         }
 
 
@@ -396,6 +448,27 @@ class RecordsController extends Controller
 
     protected function editpubs(Request $request)
     {
+        $rules = [
+            'titlepubli' => ['required','min:1', 'max:80'],
+            'decrippubli' => ['required','min:1', 'max:500'],
+        ];
+        $messages = [
+            'titlepubli.required' => 'El titulo de la publicación es requerido.',
+            'titlepubli.min' => 'El titulo debe tener al menos un caracter.',
+            'titlepubli.max' => 'El titulo no debe exceder de los 80 caracteres.',
+            'decrippubli.required' => 'El contenido de la publicación es requerido.',
+            'condecrippublitenido.min' => 'El contenido debe tener al menos un caracter.',
+            'decrippubli.max' => 'El titcontenidoulo no debe exceder de los 500 caracteres.'
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            return response()->json([
+                'success' => false,
+                'message' => $messages->first(),
+            ]);
+        }
+
         $imageEve = $request->file('updaimagefile');
         if (!is_null($imageEve)) {
             $validator = Validator::make($request->all(), [
@@ -410,8 +483,8 @@ class RecordsController extends Controller
             #SUBIENDO LA IMAGEN AL DRIVE
             $imageName = Str::random(10) . '.' . $imageEve->getClientOriginalExtension();
             $filePath = 'images/' . $imageName;
-            $diskImage = \Storage::disk('gcs')->put($filePath, file_get_contents($imageEve), 'public');
-            $gcsImage = \Storage::disk('gcs');
+            $diskImage = \Storage::disk('public')->put($filePath, file_get_contents($imageEve), 'public');
+            $gcsImage = \Storage::disk('public');
             $imageurl = $gcsImage->url('images' . "/" . $imageName);
 
         }
@@ -476,6 +549,7 @@ class RecordsController extends Controller
             $hash = new Hashids('', 10);
             $id = $hash->decode($data['code']);
             $InfoAnimales = ANIMales::find($id[0]);
+
             return response()->json([
                 "nombre" => $InfoAnimales->getNombre(),
                 "especie" => $InfoAnimales->getEspecie(),
@@ -490,9 +564,27 @@ class RecordsController extends Controller
 
     protected function editanimals(Request $request)
     {
+        $rules = [
+        'animalname' => ['required','min:1', 'max:50','regex:/^([A-ZÁÉÍÓÚ]{1}[a-zñáéíóú]+[\s]*)+$/'],
+        'especieanimal' => ['required','min:1', 'max:50'],
+        ];
+        $messages = [
+            'animalname.min' => 'El nombre del animal debe tener al menos un caracter.',
+            'animalname.max' => 'El nombre del animal no debe exceder de los 50 caracteres.',
+            'animalname.regex' => 'El nombre del animal contiene caracteres no validos.',
+            'especieanimal.min' => 'La especie del animal debe tener al menos un caracter.',
+            'especieanimal.max' => 'La especie del animal no debe exceder de los 500 caracteres.'
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            return response()->json([
+                'success' => false,
+                'message' => $messages->first(),
+            ]);
+        }
         try {
             $data = $request->all();
-            #dd($data);
             $hash = new Hashids('', 10);
             $idAnimal = $hash->decode($data['id']);
             $UpdateA = ANIMales::where('an_id', $idAnimal)->first();
@@ -663,5 +755,7 @@ class RecordsController extends Controller
             ]);
         }
     }
+
+
     }
 
