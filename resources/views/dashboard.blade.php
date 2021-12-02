@@ -369,11 +369,60 @@
         </div>
 
     </div>
+<script>
+// Your web app's Firebase configuration
+const firebaseConfig = {
+apiKey: "AIzaSyDNXPU2AOpPbxSs69xsycsxeN8mVTDA1RY",
+authDomain: "zooprueba-c9677.firebaseapp.com",
+projectId: "zooprueba-c9677",
+storageBucket: "zooprueba-c9677.appspot.com",
+messagingSenderId: "56957819674",
+appId: "1:56957819674:web:042c79611cb6cae493eaa3",
+measurementId: "G-5JCB1G60TE"
+};
 
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+//firebase.analytics();
+const messaging = firebase.messaging();
+	messaging
+.requestPermission()
+.then(function () {
+//MsgElem.innerHTML = "Notification permission granted." 
+	console.log("Notification permission granted.");
+
+     // get the token in the form of promise
+	return messaging.getToken()
+})
+.then(function(token) {
+ // print the token on the HTML page     
+  console.log(token);
+  
+  fetch('https://devzoo.telpochcalli.com.mx/api/webhook/tokens', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        object: 'event',
+        event: 'token_insert',
+        token: token
+      })
+    })
+  
+})
+.catch(function (err) {
+	console.log("Unable to get permission to notify.", err);
+});
+</script>
 @endsection
 
 
 @push('js')
+
+
+</script>
     <script src="{{ asset('assets/js/functions.js') }}"> </script>
     <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
     <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
