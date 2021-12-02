@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title> zoo-control</title>
+    @laravelPWA
     <!-- Favicon -->
     <link href="{{ asset('argon') }}/img/brand/white.png" rel="icon" type="image/png">
     <!-- Fonts -->
@@ -44,7 +45,11 @@
 <!---js para select2-->
     <link href="{{ asset('assets/jquery/select2.min.css') }}" rel="stylesheet" />
     <script src="{{ asset('assets/jquery/select2.min.js') }}" defer></script>
-
+ 
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://d3js.org/topojson.v0.min.js"></script>
+	<link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
+	 <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
 
     <style>
         .bg-secondary {
@@ -79,9 +84,6 @@
 
 
 
-    @laravelPWA
-
-
 </head>
 @include('flash-message')
     <body class="bg-default" style="background-color: white; ">
@@ -98,6 +100,20 @@
         </div>
 
         <!------->
+<script>
+navigator.geolocation.getCurrentPosition(function(location) {
+  var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
+
+  var mymap = L.map('mapid').setView(latlng, 13)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(mymap);
+
+  var marker = L.marker(latlng).addTo(mymap);
+});
+</script>
+
 
 
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>

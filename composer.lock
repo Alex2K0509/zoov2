@@ -4,11 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< Updated upstream
     "content-hash": "7013cc98d6ef14cc2447ca47631c5559",
-=======
-    "content-hash": "6672dee0fb122580cfaf0afe740e0567",
->>>>>>> Stashed changes
+
     "packages": [
         {
             "name": "alchemy/binary-driver",
